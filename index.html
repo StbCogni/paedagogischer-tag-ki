@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pädagogischer Tag — KI in der Schule</title>
+<style>
+  :root {
+    --bg: #f8f7f4;
+    --surface: #ffffff;
+    --surface-alt: #f1efe9;
+    --border: #e0ddd5;
+    --text: #1a1a1a;
+    --text-muted: #6b6860;
+    --accent: #2d6a4f;
+    --accent-light: #e8f4ef;
+    --accent2: #1d4e89;
+    --accent2-light: #e8eef7;
+    --tag-plenum: #e8eef7;
+    --tag-plenum-text: #1d4e89;
+    --tag-group: #fef3e2;
+    --tag-group-text: #a0522d;
+    --tag-pause: #f0f0f0;
+    --tag-pause-text: #555;
+    --timeline-line: #d4d0c8;
+    --radius: 10px;
+    --shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  header {
+    background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 60%, #3a8c6a 100%);
+    color: white;
+    padding: 56px 32px 48px;
+    text-align: center;
+  }
+
+  header .eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 14px;
+  }
+
+  header h1 {
+    font-size: clamp(1.75rem, 4vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 14px;
+  }
+
+  header .subtitle {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.82);
+    font-weight: 400;
+  }
+
+  header .subtitle strong { color: white; font-weight: 600; }
+
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+  }
+
+  section + section { margin-top: 64px; }
+
+  .section-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--timeline-line);
+    border-radius: 2px;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 6px;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+    z-index: 1;
+  }
+
+  .timeline-item.is-pause::before {
+    background: var(--tag-pause-text);
+    box-shadow: 0 0 0 2px var(--tag-pause-text);
+  }
+
+  .timeline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.15s;
+  }
+
+  .timeline-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.09); }
+
+  .timeline-item.is-pause .timeline-card {
+    background: var(--surface-alt);
+    border-style: dashed;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .card-time {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .card-duration { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .tag-plenum { background: var(--tag-plenum); color: var(--tag-plenum-text); }
+  .tag-group { background: var(--tag-group); color: var(--tag-group-text); }
+  .tag-pause { background: var(--tag-pause); color: var(--tag-pause-text); }
+
+  .card-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .card-body { font-size: 0.9rem; color: #3a3a3a; line-height: 1.65; }
+  .card-body ul { margin-top: 8px; padding-left: 18px; }
+  .card-body ul li { margin-bottom: 4px; }
+
+  .card-body .deliverables {
+    margin-top: 10px;
+    padding: 12px 14px;
+    background: var(--surface-alt);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+  }
+
+  .card-body .deliverables strong {
+    display: block;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .highlight-box {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: var(--accent2-light);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.88rem;
+    color: var(--accent2);
+    font-style: italic;
+  }
+
+  .accordion-intro {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+
+  .accordion { display: flex; flex-direction: column; gap: 8px; }
+
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  details[open] {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-light), var(--shadow);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { display: none; }
+  summary:hover { background: var(--surface-alt); }
+
+  .summary-badge {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--accent);
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .summary-text { flex: 1; min-width: 0; }
+
+  .summary-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--text-muted);
+    margin-bottom: 1px;
+  }
+
+  .summary-title { font-size: 0.97rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+
+  .summary-chevron {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    transition: transform 0.2s;
+  }
+
+  details[open] .summary-chevron { transform: rotate(180deg); }
+
+  .details-body {
+    padding: 0 20px 20px 66px;
+    font-size: 0.91rem;
+    color: #3a3a3a;
+    line-height: 1.65;
+  }
+
+  .details-body p { margin-bottom: 10px; }
+
+  .details-body .aufgabe-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .details-body .leitfragen-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .details-body ul { padding-left: 16px; }
+  .details-body ul li { margin-bottom: 6px; }
+
+  .quote-section {
+    text-align: center;
+    padding: 56px 24px;
+    background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 100%);
+    border-radius: 16px;
+    margin-top: 64px;
+  }
+
+  .quote-mark {
+    font-size: 4rem;
+    line-height: 1;
+    color: rgba(255,255,255,0.25);
+    font-family: Georgia, serif;
+    margin-bottom: -16px;
+  }
+
+  blockquote {
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    font-weight: 600;
+    color: white;
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto;
+    font-style: italic;
+  }
+
+  footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 64px;
+  }
+
+  footer strong { color: var(--text); }
+  footer .footer-icon { display: inline-block; margin-bottom: 8px; font-size: 1.2rem; }
+
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 36px; }
+    main { padding: 32px 16px 48px; }
+    .timeline { padding-left: 28px; }
+    .timeline-item::before { left: -22px; }
+    .timeline::before { left: 6px; }
+    .details-body { padding-left: 20px; }
+    .card-meta { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">Weiterführende Schule</p>
+  <h1>Pädagogischer Tag<br>KI in der Schule</h1>
+  <p class="subtitle">Ganztägig &nbsp;·&nbsp; <strong>08:30 – 16:30 Uhr</strong></p>
+</header>
+
+<main>
+
+<section>
+  <p class="section-title">Tagesablauf</p>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">08:30 – 08:45</span>
+          <span class="card-duration">15 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Ankommen &amp; Stimmungsbarometer</div>
+        <div class="card-body">Lehrkräfte kleben einen Punkt auf eine Skala von <em>„Bedrohung"</em> bis <em>„Chance"</em>. Anonym, kein Kommentar nötig.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">08:45 – 09:00</span>
+          <span class="card-duration">15 Min</span>
+          <span class="tag tag-group">Einzel + 4er Gruppen</span>
+        </div>
+        <div class="card-title">Einzelreflexion</div>
+        <div class="card-body">
+          Drei Fragen auf Zettel beantworten (5 Min), dann Austausch in 4er Gruppen (10 Min):
+          <ul>
+            <li>Wo bin ich zuletzt mit KI in Kontakt gekommen?</li>
+            <li>Wo habe ich KI vielleicht schon im Schulalltag genutzt?</li>
+            <li>Wo würde ich KI als besonders hilfreich erleben?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">09:00 – 09:15</span>
+          <span class="card-duration">15 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Persönlicher Impuls</div>
+        <div class="card-body">Warum ich hier bin und wie KI meinen Arbeitsalltag verändert hat. Brücke zum Schulalltag der Lehrkräfte.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">09:15 – 09:45</span>
+          <span class="card-duration">30 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Live-Demo: KI Stärken &amp; Schwächen</div>
+        <div class="card-body">
+          Alles live im Browser — kein Foliensatz:
+          <ul>
+            <li>KI erklärt Photosynthese für Klasse 5 und Abitur</li>
+            <li>KI erfindet eine falsche Quelle (Halluzination zeigen)</li>
+            <li>KI schreibt einen Elternbrief, Gruppe verbessert ihn</li>
+            <li>KI bewertet einen Schülertext — war das fair?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">09:45 – 10:45</span>
+          <span class="card-duration">60 Min</span>
+          <span class="tag tag-group">Kleingruppen</span>
+        </div>
+        <div class="card-title">Copilot-Session: Ausprobieren</div>
+        <div class="card-body">
+          Freie Wahl einer Aufgabenkarte, Dreiergruppen, selbstständiges Ausprobieren mit Copilot.
+          <div class="highlight-box">Aufgabenkarten &amp; Leitfragen ↓ siehe unten</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">10:45 – 11:15</span>
+          <span class="card-duration">30 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Copilot-Session: Ergebnisse</div>
+        <div class="card-body">Jede Gruppe stellt ihren besten Fund und größte Überraschung vor. Gemeinsame Diskussion.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item is-pause">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">11:15 – 11:30</span>
+          <span class="card-duration">15 Min</span>
+          <span class="tag tag-pause">Pause</span>
+        </div>
+        <div class="card-title">Pause</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">11:30 – 11:45</span>
+          <span class="card-duration">15 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Eingangsreflexion Ergebnisse</div>
+        <div class="card-body">Die Morgenreflexion wurde im Hintergrund per Claude geclustert. Ergebnisse werden jetzt im Plenum vorgestellt.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">11:45 – 12:30</span>
+          <span class="card-duration">45 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Datenschutz</div>
+        <div class="card-body">Dialogischer Input vom Staatlichen Schulamt. Lehrkräfte bringen konkrete Fragen aus dem Vormittag mit. Kein Frontalvortrag.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item is-pause">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">12:30 – 13:30</span>
+          <span class="card-duration">60 Min</span>
+          <span class="tag tag-pause">Mittagspause</span>
+        </div>
+        <div class="card-title">Mittagspause</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">13:30 – 13:45</span>
+          <span class="card-duration">15 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Aktivierungsübung &amp; Wie funktioniert ein LLM?</div>
+        <div class="card-body">Kurze Aktivierung nach der Pause, dann kompakte Erklärung wie Large Language Models funktionieren.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">13:45 – 15:15</span>
+          <span class="card-duration">90 Min</span>
+          <span class="tag tag-group">2er Teams + Plenum</span>
+        </div>
+        <div class="card-title">Perplexity-Session &amp; Präsentationen</div>
+        <div class="card-body">
+          Lehrkräfte schlüpfen in die Schülerrolle. Aufgabe: Referat vorbereiten (15 Min Redezeit) zu einem der Themen:
+          <ul>
+            <li>Balzverhalten der Blauwale <em>(Biologie)</em></li>
+            <li>Warum sinkt Jakarta ins Meer? <em>(Geographie)</em></li>
+            <li>Warum ist der Himmel blau und nicht lila? <em>(Physik)</em></li>
+            <li>Die Erfindung der Toilette und ihre gesellschaftliche Wirkung <em>(Geschichte)</em></li>
+            <li>Warum das Römische Reich wirklich gefallen ist <em>(Geschichte)</em></li>
+            <li>Wie funktioniert ein Kühlschrank wirklich? <em>(Physik)</em></li>
+          </ul>
+          <div class="deliverables">
+            <strong>Deliverables pro Team</strong>
+            <ul>
+              <li>Gliederung (strukturiert, 15-Minuten-tauglich)</li>
+              <li>Quellenverzeichnis (mit Perplexity generiert, auf Richtigkeit prüfen)</li>
+              <li>Humorvoller Einstieg (2–3 Sätze die das Publikum abholen)</li>
+            </ul>
+          </div>
+          <div style="margin-top:10px; font-size:0.88rem; color:var(--text-muted);">Abschluss: Kurzpräsentationen im Plenum, humorvolle Einstiege werden live vorgetragen.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">15:15 – 15:35</span>
+          <span class="card-duration">20 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Metaebene</div>
+        <div class="card-body">Offene Frage: <em>Was muss ich Schülern bei der KI-Nutzung mit auf den Weg geben?</em> Stichpunkte werden gemeinsam gesammelt.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item is-pause">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">15:35 – 15:45</span>
+          <span class="card-duration">10 Min</span>
+          <span class="tag tag-pause">Pause</span>
+        </div>
+        <div class="card-title">Pause</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">15:45 – 16:05</span>
+          <span class="card-duration">20 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">1×1 der KI-gestützten Recherche</div>
+        <div class="card-body">Aus den gesammelten Stichpunkten wurde im Hintergrund per Claude eine Rohfassung erstellt. Gemeinsam anschauen, ergänzen, abnicken. Dieses Dokument nehmen alle mit.</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-card">
+        <div class="card-meta">
+          <span class="card-time">16:05 – 16:30</span>
+          <span class="card-duration">25 Min</span>
+          <span class="tag tag-plenum">Plenum</span>
+        </div>
+        <div class="card-title">Abschluss &amp; Commitment-Karten</div>
+        <div class="card-body">
+          Abschlussfrage: <em>„Was werde ich ab morgen anders machen — und was werde ich bewusst nicht der KI überlassen?"</em><br><br>
+          Jede Person schreibt ihre Antwort auf eine Karte und hängt sie auf.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+  <p class="section-title">Aufgabenkarten Copilot-Session</p>
+  <p class="accordion-intro">Wähle deine Aufgabe — Dreiergruppen, selbstständiges Ausprobieren mit Copilot. Klappe eine Karte auf, um die Aufgabe und Leitfragen zu sehen.</p>
+
+  <div class="accordion">
+
+    <details>
+      <summary>
+        <span class="summary-badge">1</span>
+        <span class="summary-text">
+          <span class="summary-label">Fachlehrer / Club</span>
+          <span class="summary-title">Projektauftrag Geographie-Club</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Ihr begleitet eine klassenübergreifende Geographie-Gruppe. Nutzt Copilot um einen konkreten Projektauftrag zu formulieren der für Schüler verschiedener Klassenstufen funktioniert.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Welches Thema wählt ihr? (z.B. Klimawandel lokal, Migration, Ressourcen)</li>
+          <li>Wie formuliert Copilot den Auftrag — passt das, was würdet ihr ändern?</li>
+          <li>Welche Rolle spielt die KI — Assistent, Ideengeber, Strukturhelfer?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-badge">2</span>
+        <span class="summary-text">
+          <span class="summary-label">Fachlehrer / Club</span>
+          <span class="summary-title">Differenzierte Teilaufgaben</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Nutzt Copilot um Teilaufgaben zu entwickeln die Niveau und Alter verschiedener Klassenstufen im Club berücksichtigen.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Für welche Klassenstufen entwickelt ihr Aufgaben?</li>
+          <li>Wo hilft Copilot gut, wo greift ihr korrigierend ein?</li>
+          <li>Was würdet ihr euren Schülern dabei zeigen — und was lieber nicht?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-badge">3</span>
+        <span class="summary-text">
+          <span class="summary-label">Lerncoach</span>
+          <span class="summary-title">Entwicklungsgespräch vorbereiten</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Ein Schüler hält seinen Lernpfad nicht ein. Das Gespräch steht an. Nutzt Copilot um einen Gesprächsleitfaden zu erstellen — wertschätzend, lösungsorientiert, konkret.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Welche Infos gebt ihr Copilot als Kontext?</li>
+          <li>Fühlt sich der Leitfaden an wie ihr — oder zu generisch?</li>
+          <li>Wo würdet ihr den Text anpassen bevor ihr ins Gespräch geht?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-badge">4</span>
+        <span class="summary-text">
+          <span class="summary-label">Lerncoach</span>
+          <span class="summary-title">Methoden für Selbstorganisation</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Ein Schüler kämpft mit Selbstorganisation. Nutzt Copilot um passende Methoden zu recherchieren und für euren Schulalltag zu übersetzen.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Wie beschreibt ihr den Schüler im Prompt?</li>
+          <li>Welche Methoden überraschen euch?</li>
+          <li>Wie würdet ihr das im nächsten Gespräch einsetzen?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-badge">5</span>
+        <span class="summary-text">
+          <span class="summary-label">Lerncoach</span>
+          <span class="summary-title">Gruppenformat Lernstrategien</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Plant eine 45-Minuten Session mit einer Schülergruppe zum Thema Lernstrategien. Nutzt Copilot für einen konkreten Ablauf.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Für welche Altersgruppe plant ihr?</li>
+          <li>Wie detailliert plant Copilot — zu viel, zu wenig, genau richtig?</li>
+          <li>Was nehmt ihr direkt mit, was landet im Papierkorb?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-badge">6</span>
+        <span class="summary-text">
+          <span class="summary-label">Schulentwicklung</span>
+          <span class="summary-title">iPad-Nutzungskonzept &amp; KI</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Das bestehende iPad-Konzept soll um KI-Nutzung erweitert werden. Nutzt Copilot um zu analysieren was fehlt und neue Leitlinien zu entwickeln.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Was gebt ihr Copilot als Ausgangsmaterial?</li>
+          <li>Welche Lücken findet Copilot die ihr noch nicht gesehen habt?</li>
+          <li>Was ist sofort umsetzbar, was braucht Schulkonferenz?</li>
+        </ul>
+      </div>
+    </details>
+
+    <details>
+      <summary>
+        <span class="summary-badge">7</span>
+        <span class="summary-text">
+          <span class="summary-label">Schulentwicklung</span>
+          <span class="summary-title">Neue Lernmethodik übersetzen</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Recherchiert mit Copilot eine Lernmethodik die ihr noch nicht kennt und übersetzt sie auf zwei Seiten für den konkreten Schulalltag — so dass ein Kollege sie morgen einsetzen könnte.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Welches Thema interessiert euch?</li>
+          <li>Wie gut übersetzt Copilot vom Theoretischen ins Praktische?</li>
+          <li>Was fehlt noch damit der Text wirklich nutzbar ist?</li>
+        </ul>
+      </div>
+    </details>
+
+  </div>
+</section>
+
+<div class="quote-section">
+  <div class="quote-mark">&ldquo;</div>
+  <blockquote>Was werde ich ab morgen anders machen — und was werde ich bewusst nicht der KI überlassen?</blockquote>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-icon">📄</div><br>
+  <strong>Hinweis:</strong> Das <em>1×1 der KI-gestützten Recherche</em> wird am Ende des Tages gemeinsam erarbeitet und steht allen Teilnehmenden zur Verfügung.
+</footer>
+
+</body>
+</html>
