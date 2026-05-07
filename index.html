@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pädagogischer Tag — KI in der Schule</title>
+<title>Pädagogischer Tag — KI in der Schule · TBS Weingarten</title>
 <style>
   :root {
     --bg: #f8f7f4;
@@ -16,6 +16,9 @@
     --accent-light: #e8f4ef;
     --accent2: #1d4e89;
     --accent2-light: #e8eef7;
+    --warn: #fff8e1;
+    --warn-border: #f0b429;
+    --warn-text: #7a5c00;
     --tag-plenum: #e8eef7;
     --tag-plenum-text: #1d4e89;
     --tag-group: #fef3e2;
@@ -37,38 +40,54 @@
     line-height: 1.6;
   }
 
+  /* ─── HEADER ─────────────────────────────── */
   header {
     background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 60%, #3a8c6a 100%);
     color: white;
-    padding: 56px 32px 48px;
+    padding: 40px 32px 44px;
     text-align: center;
   }
 
-  header .eyebrow {
+  .header-logo {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin-bottom: 16px;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  header .school-name {
     font-size: 0.78rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 14px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 10px;
   }
 
   header h1 {
-    font-size: clamp(1.75rem, 4vw, 2.8rem);
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
     margin-bottom: 14px;
   }
 
-  header .subtitle {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.82);
-    font-weight: 400;
+  header .meta {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
   }
 
-  header .subtitle strong { color: white; font-weight: 600; }
+  header .meta .sep { opacity: 0.4; }
+  header .meta strong { color: white; font-weight: 600; }
 
+  /* ─── MAIN ────────────────────────────────── */
   main {
     max-width: 860px;
     margin: 0 auto;
@@ -88,34 +107,25 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .timeline {
-    position: relative;
-    padding-left: 36px;
-  }
+  /* ─── TIMELINE ────────────────────────────── */
+  .timeline { position: relative; padding-left: 36px; }
 
   .timeline::before {
     content: "";
     position: absolute;
-    left: 10px;
-    top: 8px;
-    bottom: 8px;
+    left: 10px; top: 8px; bottom: 8px;
     width: 2px;
     background: var(--timeline-line);
     border-radius: 2px;
   }
 
-  .timeline-item {
-    position: relative;
-    margin-bottom: 6px;
-  }
+  .timeline-item { position: relative; margin-bottom: 6px; }
 
   .timeline-item::before {
     content: "";
     position: absolute;
-    left: -30px;
-    top: 20px;
-    width: 10px;
-    height: 10px;
+    left: -30px; top: 20px;
+    width: 10px; height: 10px;
     border-radius: 50%;
     background: var(--accent);
     border: 2px solid var(--bg);
@@ -162,10 +172,16 @@
 
   .card-duration { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
 
+  .card-tool-icon {
+    width: 20px; height: 20px;
+    border-radius: 5px;
+    object-fit: contain;
+    vertical-align: middle;
+  }
+
   .tag {
     display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 0.7rem; font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     padding: 2px 8px;
@@ -174,15 +190,18 @@
   }
 
   .tag-plenum { background: var(--tag-plenum); color: var(--tag-plenum-text); }
-  .tag-group { background: var(--tag-group); color: var(--tag-group-text); }
-  .tag-pause { background: var(--tag-pause); color: var(--tag-pause-text); }
+  .tag-group  { background: var(--tag-group);  color: var(--tag-group-text); }
+  .tag-pause  { background: var(--tag-pause);  color: var(--tag-pause-text); }
 
   .card-title {
     font-size: 1.05rem;
     font-weight: 700;
     color: var(--text);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 
   .card-body { font-size: 0.9rem; color: #3a3a3a; line-height: 1.65; }
@@ -190,8 +209,7 @@
   .card-body ul li { margin-bottom: 4px; }
 
   .card-body .deliverables {
-    margin-top: 10px;
-    padding: 12px 14px;
+    margin-top: 10px; padding: 12px 14px;
     background: var(--surface-alt);
     border-left: 3px solid var(--accent);
     border-radius: 0 6px 6px 0;
@@ -207,20 +225,116 @@
   }
 
   .highlight-box {
-    margin-top: 10px;
-    padding: 10px 14px;
+    margin-top: 10px; padding: 10px 14px;
     background: var(--accent2-light);
     border-left: 3px solid var(--accent2);
     border-radius: 0 6px 6px 0;
     font-size: 0.88rem;
     color: var(--accent2);
-    font-style: italic;
+  }
+
+  .highlight-box a { color: var(--accent2); font-weight: 600; }
+
+  .warn-box {
+    margin-top: 12px; padding: 10px 14px;
+    background: var(--warn);
+    border-left: 3px solid var(--warn-border);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.85rem;
+    color: var(--warn-text);
+    line-height: 1.55;
+  }
+
+  /* ─── STEPS ────────────────────────────────── */
+  .steps { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+
+  .step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--surface-alt);
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+
+  .step-badge {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .step-content { font-size: 0.88rem; color: #2a2a2a; line-height: 1.5; }
+  .step-content strong { color: var(--accent); }
+  .step-time { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* ─── IMPULSFRAGEN ───────────────────────── */
+  .impulse-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .impulse-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 12px;
+    background: var(--surface-alt);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    color: #2a2a2a;
+    line-height: 1.5;
+  }
+
+  .impulse-item::before {
+    content: "?";
+    flex-shrink: 0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--accent2);
+    color: white;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .arbeitsauftrag {
+    margin-top: 14px; padding: 12px 14px;
+    background: #f0f4ff;
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.88rem;
+    color: #2a2a2a;
+    line-height: 1.6;
+  }
+
+  .arbeitsauftrag strong {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent2);
+    margin-bottom: 4px;
+  }
+
+  /* ─── ACCORDION ───────────────────────────── */
+  .accordion-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
   .accordion-intro {
     font-size: 0.95rem;
     color: var(--text-muted);
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     line-height: 1.6;
   }
 
@@ -240,14 +354,10 @@
   }
 
   summary {
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    display: flex; align-items: center; gap: 14px;
     padding: 16px 20px;
-    cursor: pointer;
-    list-style: none;
-    user-select: none;
-    -webkit-user-select: none;
+    cursor: pointer; list-style: none;
+    user-select: none; -webkit-user-select: none;
   }
 
   summary::-webkit-details-marker { display: none; }
@@ -256,141 +366,123 @@
 
   .summary-badge {
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     border-radius: 8px;
     background: var(--accent);
     color: white;
-    font-size: 0.78rem;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 0.78rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
   }
 
   .summary-text { flex: 1; min-width: 0; }
 
   .summary-label {
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-    color: var(--text-muted);
-    margin-bottom: 1px;
+    font-size: 0.7rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.09em;
+    color: var(--text-muted); margin-bottom: 1px;
   }
 
   .summary-title { font-size: 0.97rem; font-weight: 700; color: var(--text); line-height: 1.3; }
 
   .summary-chevron {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    color: var(--text-muted);
-    transition: transform 0.2s;
+    flex-shrink: 0; width: 20px; height: 20px;
+    color: var(--text-muted); transition: transform 0.2s;
   }
 
   details[open] .summary-chevron { transform: rotate(180deg); }
 
   .details-body {
     padding: 0 20px 20px 66px;
-    font-size: 0.91rem;
-    color: #3a3a3a;
-    line-height: 1.65;
+    font-size: 0.91rem; color: #3a3a3a; line-height: 1.65;
   }
 
   .details-body p { margin-bottom: 10px; }
 
   .details-body .aufgabe-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    margin-bottom: 4px;
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); margin-bottom: 4px;
   }
 
   .details-body .leitfragen-label {
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--accent2);
-    margin-top: 14px;
-    margin-bottom: 6px;
+    font-size: 0.72rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent2); margin-top: 14px; margin-bottom: 6px;
   }
 
   .details-body ul { padding-left: 16px; }
   .details-body ul li { margin-bottom: 6px; }
 
+  /* ─── QUOTE ───────────────────────────────── */
   .quote-section {
-    text-align: center;
-    padding: 56px 24px;
+    text-align: center; padding: 56px 24px;
     background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 100%);
-    border-radius: 16px;
-    margin-top: 64px;
+    border-radius: 16px; margin-top: 64px;
   }
 
   .quote-mark {
-    font-size: 4rem;
-    line-height: 1;
+    font-size: 4rem; line-height: 1;
     color: rgba(255,255,255,0.25);
-    font-family: Georgia, serif;
-    margin-bottom: -16px;
+    font-family: Georgia, serif; margin-bottom: -16px;
   }
 
   blockquote {
-    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
-    font-weight: 600;
-    color: white;
-    line-height: 1.5;
-    max-width: 640px;
-    margin: 0 auto;
-    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 600; color: white;
+    line-height: 1.5; max-width: 640px;
+    margin: 0 auto; font-style: italic;
   }
 
+  /* ─── FOOTER ──────────────────────────────── */
   footer {
     background: var(--surface);
     border-top: 1px solid var(--border);
-    padding: 28px 24px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-top: 64px;
+    padding: 28px 24px; text-align: center;
+    font-size: 0.85rem; color: var(--text-muted);
+    line-height: 1.6; margin-top: 64px;
   }
 
   footer strong { color: var(--text); }
-  footer .footer-icon { display: inline-block; margin-bottom: 8px; font-size: 1.2rem; }
 
+  /* ─── RESPONSIVE ──────────────────────────── */
   @media (max-width: 600px) {
-    header { padding: 40px 20px 36px; }
+    header { padding: 32px 20px 36px; }
     main { padding: 32px 16px 48px; }
     .timeline { padding-left: 28px; }
     .timeline-item::before { left: -22px; }
     .timeline::before { left: 6px; }
     .details-body { padding-left: 20px; }
-    .card-meta { gap: 6px; }
   }
 </style>
 </head>
 <body>
 
+<!-- ═══ HEADER ═══════════════════════════════════════════════ -->
 <header>
-  <p class="eyebrow">Weiterführende Schule</p>
+  <img class="header-logo"
+       src="https://turmbergschule-weingarten.de/wp-content/themes/tbs/img/assets/logo-kachel.svg"
+       alt="TBS Logo">
+  <p class="school-name">Turmbergschule Weingarten</p>
   <h1>Pädagogischer Tag<br>KI in der Schule</h1>
-  <p class="subtitle">Ganztägig &nbsp;·&nbsp; <strong>08:30 – 16:30 Uhr</strong></p>
+  <div class="meta">
+    <span>📅 <strong>13. Mai 2026</strong></span>
+    <span class="sep">·</span>
+    <span>🕗 <strong>08:00 – 16:30 Uhr</strong></span>
+  </div>
 </header>
 
 <main>
 
+<!-- ═══ TIMELINE ═════════════════════════════════════════════ -->
 <section>
   <p class="section-title">Tagesablauf</p>
   <div class="timeline">
 
+    <!-- 08:00 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">08:30 – 08:45</span>
+          <span class="card-time">08:00 – 08:15</span>
           <span class="card-duration">15 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
@@ -399,10 +491,11 @@
       </div>
     </div>
 
+    <!-- 08:15 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">08:45 – 09:00</span>
+          <span class="card-time">08:15 – 08:30</span>
           <span class="card-duration">15 Min</span>
           <span class="tag tag-group">Einzel + 4er Gruppen</span>
         </div>
@@ -418,10 +511,11 @@
       </div>
     </div>
 
+    <!-- 08:30 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">09:00 – 09:15</span>
+          <span class="card-time">08:30 – 08:45</span>
           <span class="card-duration">15 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
@@ -430,10 +524,11 @@
       </div>
     </div>
 
+    <!-- 08:45 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">09:15 – 09:45</span>
+          <span class="card-time">08:45 – 09:15</span>
           <span class="card-duration">30 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
@@ -450,37 +545,52 @@
       </div>
     </div>
 
+    <!-- 09:15 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">09:45 – 10:45</span>
+          <span class="card-time">09:15 – 10:15</span>
           <span class="card-duration">60 Min</span>
           <span class="tag tag-group">Kleingruppen</span>
+          <img class="card-tool-icon" src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://copilot.microsoft.com&size=128" alt="Copilot">
         </div>
         <div class="card-title">Copilot-Session: Ausprobieren</div>
         <div class="card-body">
           Freie Wahl einer Aufgabenkarte, Dreiergruppen, selbstständiges Ausprobieren mit Copilot.
-          <div class="highlight-box">Aufgabenkarten &amp; Leitfragen ↓ siehe unten</div>
+          <div class="warn-box">
+            ⚠️ <strong>Bitte keine personenbezogenen Daten eingeben.</strong> Andere KI-Tools dürfen gerne ebenfalls ausprobiert werden.
+          </div>
+          <div class="highlight-box" style="margin-top:10px;">Aufgabenkarten &amp; Leitfragen ↓ siehe unten</div>
         </div>
       </div>
     </div>
 
+    <!-- 10:15 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">10:45 – 11:15</span>
+          <span class="card-time">10:15 – 10:45</span>
           <span class="card-duration">30 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
         <div class="card-title">Copilot-Session: Ergebnisse</div>
-        <div class="card-body">Jede Gruppe stellt ihren besten Fund und größte Überraschung vor. Gemeinsame Diskussion.</div>
+        <div class="card-body">
+          Jede Gruppe stellt ihren besten Fund und größte Überraschung vor. Gemeinsame Diskussion.
+          <div class="highlight-box">
+            📌 Ergebnisse festhalten auf dem gemeinsamen Board:<br>
+            <a href="https://www.edumaps.de/66642/330293/ibeal4t3ce/aytvthupt2" target="_blank">
+              edumaps.de → Board öffnen
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Pause -->
     <div class="timeline-item is-pause">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">11:15 – 11:30</span>
+          <span class="card-time">10:45 – 11:00</span>
           <span class="card-duration">15 Min</span>
           <span class="tag tag-pause">Pause</span>
         </div>
@@ -488,10 +598,11 @@
       </div>
     </div>
 
+    <!-- 11:00 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">11:30 – 11:45</span>
+          <span class="card-time">11:00 – 11:15</span>
           <span class="card-duration">15 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
@@ -500,11 +611,12 @@
       </div>
     </div>
 
+    <!-- 11:15 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">11:45 – 12:30</span>
-          <span class="card-duration">45 Min</span>
+          <span class="card-time">11:15 – 12:30</span>
+          <span class="card-duration">75 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
         <div class="card-title">Datenschutz</div>
@@ -512,21 +624,23 @@
       </div>
     </div>
 
+    <!-- Mittagspause -->
     <div class="timeline-item is-pause">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">12:30 – 13:30</span>
-          <span class="card-duration">60 Min</span>
+          <span class="card-time">12:30 – 13:15</span>
+          <span class="card-duration">45 Min</span>
           <span class="tag tag-pause">Mittagspause</span>
         </div>
         <div class="card-title">Mittagspause</div>
       </div>
     </div>
 
+    <!-- 13:15 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">13:30 – 13:45</span>
+          <span class="card-time">13:15 – 13:30</span>
           <span class="card-duration">15 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
@@ -535,16 +649,20 @@
       </div>
     </div>
 
+    <!-- 13:30 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">13:45 – 15:15</span>
-          <span class="card-duration">90 Min</span>
+          <span class="card-time">13:30 – 14:30</span>
+          <span class="card-duration">60 Min</span>
           <span class="tag tag-group">2er Teams + Plenum</span>
+          <img class="card-tool-icon" src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://perplexity.ai&size=128" alt="Perplexity">
         </div>
         <div class="card-title">Perplexity-Session &amp; Präsentationen</div>
         <div class="card-body">
-          Lehrkräfte schlüpfen in die Schülerrolle. Aufgabe: Referat vorbereiten (15 Min Redezeit) zu einem der Themen:
+          Lehrkräfte schlüpfen in die Schülerrolle. Aufgabe: Referat mit Perplexity vorbereiten und im Plenum vorstellen.
+          <br><br>
+          <strong style="font-size:0.85rem;">Themen zur Auswahl:</strong>
           <ul>
             <li>Balzverhalten der Blauwale <em>(Biologie)</em></li>
             <li>Warum sinkt Jakarta ins Meer? <em>(Geographie)</em></li>
@@ -552,47 +670,111 @@
             <li>Die Erfindung der Toilette und ihre gesellschaftliche Wirkung <em>(Geschichte)</em></li>
             <li>Warum das Römische Reich wirklich gefallen ist <em>(Geschichte)</em></li>
             <li>Wie funktioniert ein Kühlschrank wirklich? <em>(Physik)</em></li>
+            <li>Warum ist Geld eigentlich wertlos — und trotzdem alles wert? <em>(Wirtschaft)</em></li>
+            <li>Warum schlafen wir überhaupt — und was passiert im Gehirn dabei? <em>(Biologie)</em></li>
+            <li>Wie funktioniert Gedächtnis — und warum vergessen wir so viel? <em>(Psychologie)</em></li>
           </ul>
-          <div class="deliverables">
-            <strong>Deliverables pro Team</strong>
+
+          <div class="steps">
+            <div class="step">
+              <div class="step-badge">1</div>
+              <div class="step-content">
+                <strong>Thema wählen &amp; Recherche starten</strong><br>
+                Thema aus der Liste auswählen, erste Fragen an Perplexity formulieren.
+                <div class="step-time">⏱ 5 Min</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-badge">2</div>
+              <div class="step-content">
+                <strong>Recherche vertiefen</strong><br>
+                Nachfragen stellen, Quellen bewusst prüfen — stimmt das wirklich?
+                <div class="step-time">⏱ 15 Min</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-badge">3</div>
+              <div class="step-content">
+                <strong>Gliederung, Quellen &amp; Einstieg</strong><br>
+                Struktur für 5 Min Redezeit erstellen · Quellenverzeichnis auf Richtigkeit prüfen · humorvollen Einstieg formulieren (2–3 Sätze).
+                <div class="step-time">⏱ 10 Min</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-badge">4</div>
+              <div class="step-content">
+                <strong>Kurzpräsentationen im Plenum</strong><br>
+                Jedes Team trägt den humorvollen Einstieg vor — Diskussion im Anschluss.
+                <div class="step-time">⏱ 30 Min</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="deliverables" style="margin-top:12px;">
+            <strong>Eure Ergebnisse</strong>
             <ul>
-              <li>Gliederung (strukturiert, 15-Minuten-tauglich)</li>
-              <li>Quellenverzeichnis (mit Perplexity generiert, auf Richtigkeit prüfen)</li>
+              <li>Gliederung (strukturiert, 5-Minuten-tauglich)</li>
+              <li>Quellenverzeichnis (mit Perplexity generiert, auf Richtigkeit geprüft)</li>
               <li>Humorvoller Einstieg (2–3 Sätze die das Publikum abholen)</li>
             </ul>
           </div>
-          <div style="margin-top:10px; font-size:0.88rem; color:var(--text-muted);">Abschluss: Kurzpräsentationen im Plenum, humorvolle Einstiege werden live vorgetragen.</div>
+
+          <div class="highlight-box" style="margin-top:10px;">
+            📌 Ergebnisse auf dem gemeinsamen Board festhalten:<br>
+            <a href="https://www.edumaps.de/66642/330293/ibeal4t3ce/aytvthupt2" target="_blank">
+              edumaps.de → Board öffnen
+            </a>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- 14:30 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">15:15 – 15:35</span>
-          <span class="card-duration">20 Min</span>
+          <span class="card-time">14:30 – 15:15</span>
+          <span class="card-duration">45 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
         <div class="card-title">Metaebene</div>
-        <div class="card-body">Offene Frage: <em>Was muss ich Schülern bei der KI-Nutzung mit auf den Weg geben?</em> Stichpunkte werden gemeinsam gesammelt.</div>
+        <div class="card-body">
+          Offene Reflexion: Was muss ich Schülern bei der KI-gestützten Recherche mit auf den Weg geben?
+
+          <div class="impulse-list">
+            <div class="impulse-item">Was waren deine heutigen Stolpersteine — und was kannst du Schülern davon mitgeben?</div>
+            <div class="impulse-item">Wo hast du heute KI-Ergebnisse hinterfragt und reflektiert?</div>
+            <div class="impulse-item">Wie erkenne ich als Schüler, ob ich der KI gerade zu sehr vertraue?</div>
+            <div class="impulse-item">Woran erkenne ich, ob eine Quelle die mir Perplexity nennt, wirklich existiert?</div>
+            <div class="impulse-item">Wie kann ich Schülern beibringen, Quellen zu prüfen, wenn die KI sie schon zusammengefasst hat?</div>
+            <div class="impulse-item">Welche Recherchekompetenzen brauchen Schüler mehr, seitdem KI die erste Antwort liefert?</div>
+          </div>
+
+          <div class="arbeitsauftrag">
+            <strong>Arbeitsauftrag</strong>
+            Schreibe deine wichtigsten Gedanken auf Metaplankarten. Tausche dich dann zu dritt aus und verdichtet eure Antworten auf die wesentlichen Punkte.
+          </div>
+        </div>
       </div>
     </div>
 
+    <!-- Pause -->
     <div class="timeline-item is-pause">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">15:35 – 15:45</span>
-          <span class="card-duration">10 Min</span>
+          <span class="card-time">15:15 – 15:30</span>
+          <span class="card-duration">15 Min</span>
           <span class="tag tag-pause">Pause</span>
         </div>
         <div class="card-title">Pause</div>
       </div>
     </div>
 
+    <!-- 15:30 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">15:45 – 16:05</span>
+          <span class="card-time">15:30 – 15:50</span>
           <span class="card-duration">20 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
@@ -601,17 +783,20 @@
       </div>
     </div>
 
+    <!-- 15:50 -->
     <div class="timeline-item">
       <div class="timeline-card">
         <div class="card-meta">
-          <span class="card-time">16:05 – 16:30</span>
-          <span class="card-duration">25 Min</span>
+          <span class="card-time">15:50 – 16:30</span>
+          <span class="card-duration">40 Min</span>
           <span class="tag tag-plenum">Plenum</span>
         </div>
         <div class="card-title">Abschluss &amp; Commitment-Karten</div>
         <div class="card-body">
-          Abschlussfrage: <em>„Was werde ich ab morgen anders machen — und was werde ich bewusst nicht der KI überlassen?"</em><br><br>
-          Jede Person schreibt ihre Antwort auf eine Karte und hängt sie auf.
+          Abschlussfrage:<br>
+          <em>„Was möchte ich morgen ausprobieren — und was werde ich bewusst nicht der KI überlassen?"</em>
+          <br><br>
+          Jede Person schreibt ihre Antwort auf eine Karte und nimmt sie als persönliches Takeaway mit nach Hause.
         </div>
       </div>
     </div>
@@ -619,9 +804,18 @@
   </div>
 </section>
 
+<!-- ═══ AUFGABENKARTEN ════════════════════════════════════════ -->
 <section>
   <p class="section-title">Aufgabenkarten Copilot-Session</p>
-  <p class="accordion-intro">Wähle deine Aufgabe — Dreiergruppen, selbstständiges Ausprobieren mit Copilot. Klappe eine Karte auf, um die Aufgabe und Leitfragen zu sehen.</p>
+
+  <div class="accordion-header">
+    <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://copilot.microsoft.com&size=128" alt="Copilot" style="width:28px;height:28px;border-radius:6px;">
+    <p class="accordion-intro" style="margin-bottom:0;">Wähle deine Aufgabe — Dreiergruppen, selbstständiges Ausprobieren mit Copilot (oder einem anderen Tool deiner Wahl).</p>
+  </div>
+
+  <div class="warn-box" style="margin-bottom:16px;">
+    ⚠️ <strong>Keine personenbezogenen Daten eingeben.</strong> Andere KI-Tools dürfen gerne ebenfalls genutzt werden.
+  </div>
 
   <div class="accordion">
 
@@ -672,16 +866,16 @@
         <span class="summary-badge">3</span>
         <span class="summary-text">
           <span class="summary-label">Lerncoach</span>
-          <span class="summary-title">Entwicklungsgespräch vorbereiten</span>
+          <span class="summary-title">Elterngespräch vorbereiten</span>
         </span>
         <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
       </summary>
       <div class="details-body">
         <p class="aufgabe-label">Aufgabe</p>
-        <p>Ein Schüler hält seinen Lernpfad nicht ein. Das Gespräch steht an. Nutzt Copilot um einen Gesprächsleitfaden zu erstellen — wertschätzend, lösungsorientiert, konkret.</p>
+        <p>Ein schwieriges Elterngespräch steht an — z.B. zu Leistungsabfall, Fehlverhalten oder fehlender Unterstützung zu Hause. Nutzt Copilot um einen Gesprächsleitfaden zu erstellen — wertschätzend, lösungsorientiert, konkret.</p>
         <p class="leitfragen-label">Leitfragen</p>
         <ul>
-          <li>Welche Infos gebt ihr Copilot als Kontext?</li>
+          <li>Welche Infos und den Kontext gebt ihr Copilot?</li>
           <li>Fühlt sich der Leitfaden an wie ihr — oder zu generisch?</li>
           <li>Wo würdet ihr den Text anpassen bevor ihr ins Gespräch geht?</li>
         </ul>
@@ -772,18 +966,41 @@
       </div>
     </details>
 
+    <details>
+      <summary>
+        <span class="summary-badge" style="background: var(--accent2);">8</span>
+        <span class="summary-text">
+          <span class="summary-label">Freies Szenario</span>
+          <span class="summary-title">Dein eigener Anwendungsfall</span>
+        </span>
+        <svg class="summary-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </summary>
+      <div class="details-body">
+        <p class="aufgabe-label">Aufgabe</p>
+        <p>Du bringst dein eigenes Anwendungsszenario mit — etwas aus deinem konkreten Schulalltag, das du schon länger mit KI ausprobieren wolltest. Probiert es gemeinsam aus und stellt euren Fall und eure Erfahrung den anderen vor.</p>
+        <p class="leitfragen-label">Leitfragen</p>
+        <ul>
+          <li>Was ist dein konkretes Szenario — und warum ist es für dich relevant?</li>
+          <li>Was hat überraschend gut funktioniert?</li>
+          <li>Was würdest du anderen empfehlen, die dasselbe ausprobieren wollen?</li>
+        </ul>
+      </div>
+    </details>
+
   </div>
 </section>
 
+<!-- ═══ QUOTE ══════════════════════════════════════════════════ -->
 <div class="quote-section">
   <div class="quote-mark">&ldquo;</div>
-  <blockquote>Was werde ich ab morgen anders machen — und was werde ich bewusst nicht der KI überlassen?</blockquote>
+  <blockquote>
+    Was möchte ich morgen ausprobieren — und was werde ich bewusst nicht der KI überlassen?
+  </blockquote>
 </div>
 
 </main>
 
 <footer>
-  <div class="footer-icon">📄</div><br>
   <strong>Hinweis:</strong> Das <em>1×1 der KI-gestützten Recherche</em> wird am Ende des Tages gemeinsam erarbeitet und steht allen Teilnehmenden zur Verfügung.
 </footer>
 
