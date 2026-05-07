@@ -32,11 +32,33 @@
   .step-time { display: inline-block; margin-top: 5px; font-size: 0.75rem; font-weight: 600; color: white; background: var(--accent); padding: 2px 8px; border-radius: 20px; }
 
   /* ─── TOPICS ─────────────────────────────── */
-  .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-bottom: 36px; }
-  .topic-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); transition: box-shadow 0.15s; }
-  .topic-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
-  .topic-fach { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 4px; }
-  .topic-title { font-size: 0.9rem; font-weight: 600; color: var(--text); line-height: 1.4; }
+  .topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-bottom: 36px; }
+  .topic-card {
+    background: var(--surface);
+    border: 1.5px solid color-mix(in srgb, var(--topic-color, var(--accent)) 20%, #e0ddd5);
+    border-radius: 12px; padding: 16px 18px;
+    box-shadow: var(--shadow); transition: box-shadow 0.15s, transform 0.15s;
+    background: color-mix(in srgb, var(--topic-color, var(--accent)) 4%, white);
+  }
+  .topic-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.11); transform: translateY(-2px); }
+  .topic-fach {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.09em;
+    color: var(--topic-color, var(--accent)); margin-bottom: 7px;
+  }
+  .topic-emoji { font-size: 1rem; line-height: 1; }
+  .topic-title { font-size: 0.92rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: 7px; }
+  .topic-teaser { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+
+  /* Fach-Farben */
+  .fach-bio      { --topic-color: #2d6a4f; }
+  .fach-geo      { --topic-color: #1d4e89; }
+  .fach-physik   { --topic-color: #0a7f8a; }
+  .fach-geo2     { --topic-color: #1d4e89; }
+  .fach-geschichte { --topic-color: #b45309; }
+  .fach-wirtschaft { --topic-color: #5b21b6; }
+  .fach-psycho   { --topic-color: #b5365a; }
 
   /* ─── RESULTS ────────────────────────────── */
   .results-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); margin-bottom: 20px; }
@@ -109,15 +131,51 @@
   <section style="margin-bottom: 36px;">
     <p class="section-label">Themen zur Auswahl</p>
     <div class="topics">
-      <div class="topic-card"><div class="topic-fach">Biologie</div><div class="topic-title">Balzverhalten der Blauwale</div></div>
-      <div class="topic-card"><div class="topic-fach">Geographie</div><div class="topic-title">Warum sinkt Jakarta ins Meer?</div></div>
-      <div class="topic-card"><div class="topic-fach">Physik</div><div class="topic-title">Warum ist der Himmel blau und nicht lila?</div></div>
-      <div class="topic-card"><div class="topic-fach">Geschichte</div><div class="topic-title">Die Erfindung der Toilette und ihre gesellschaftliche Wirkung</div></div>
-      <div class="topic-card"><div class="topic-fach">Geschichte</div><div class="topic-title">Warum das Römische Reich wirklich gefallen ist</div></div>
-      <div class="topic-card"><div class="topic-fach">Physik</div><div class="topic-title">Wie funktioniert ein Kühlschrank wirklich?</div></div>
-      <div class="topic-card"><div class="topic-fach">Wirtschaft</div><div class="topic-title">Warum ist Geld eigentlich wertlos — und trotzdem alles wert?</div></div>
-      <div class="topic-card"><div class="topic-fach">Biologie</div><div class="topic-title">Warum schlafen wir überhaupt — und was passiert im Gehirn dabei?</div></div>
-      <div class="topic-card"><div class="topic-fach">Psychologie</div><div class="topic-title">Wie funktioniert Gedächtnis — und warum vergessen wir so viel?</div></div>
+      <div class="topic-card fach-bio">
+        <div class="topic-fach"><span class="topic-emoji">🐋</span>Biologie</div>
+        <div class="topic-title">Balzverhalten der Blauwale</div>
+        <div class="topic-teaser">Wie finden die größten Tiere der Welt zueinander — und warum klingt das wie ein Lied?</div>
+      </div>
+      <div class="topic-card fach-geo">
+        <div class="topic-fach"><span class="topic-emoji">🌊</span>Geographie</div>
+        <div class="topic-title">Warum sinkt Jakarta ins Meer?</div>
+        <div class="topic-teaser">Millionen Menschen, zu viel Grundwasser entnommen — eine Stadt versinkt langsam im eigenen Untergrund.</div>
+      </div>
+      <div class="topic-card fach-physik">
+        <div class="topic-fach"><span class="topic-emoji">☀️</span>Physik</div>
+        <div class="topic-title">Warum ist der Himmel blau und nicht lila?</div>
+        <div class="topic-teaser">Licht streut, aber unsere Augen entscheiden. Warum sehen wir Blau — und nicht was Physik eigentlich nahelegt?</div>
+      </div>
+      <div class="topic-card fach-geschichte">
+        <div class="topic-fach"><span class="topic-emoji">🚽</span>Geschichte</div>
+        <div class="topic-title">Die Erfindung der Toilette und ihre gesellschaftliche Wirkung</div>
+        <div class="topic-teaser">Eine Erfindung, die mehr Leben gerettet hat als jedes Medikament — und trotzdem nie einen Nobelpreis bekam.</div>
+      </div>
+      <div class="topic-card fach-geschichte">
+        <div class="topic-fach"><span class="topic-emoji">🏛️</span>Geschichte</div>
+        <div class="topic-title">Warum das Römische Reich wirklich gefallen ist</div>
+        <div class="topic-teaser">Barbaren, Blei im Wasser, Klimawandel? Die Wahrheit ist komplizierter — und überraschend aktuell.</div>
+      </div>
+      <div class="topic-card fach-physik">
+        <div class="topic-fach"><span class="topic-emoji">❄️</span>Physik</div>
+        <div class="topic-title">Wie funktioniert ein Kühlschrank wirklich?</div>
+        <div class="topic-teaser">Kälte entsteht nicht — sie wird verschoben. Ein cleverer Kreislauf steckt hinter jedem Joghurt.</div>
+      </div>
+      <div class="topic-card fach-wirtschaft">
+        <div class="topic-fach"><span class="topic-emoji">💵</span>Wirtschaft</div>
+        <div class="topic-title">Warum ist Geld eigentlich wertlos — und trotzdem alles wert?</div>
+        <div class="topic-teaser">Papier, Vertrauen, kollektive Fiktion: Wie ein bedruckter Zettel die Welt zusammenhält.</div>
+      </div>
+      <div class="topic-card fach-bio">
+        <div class="topic-fach"><span class="topic-emoji">😴</span>Biologie</div>
+        <div class="topic-title">Warum schlafen wir überhaupt — und was passiert im Gehirn dabei?</div>
+        <div class="topic-teaser">Ein Drittel unseres Lebens verbringen wir bewusstlos. Ohne dieses Drittel würden wir sterben — aber warum?</div>
+      </div>
+      <div class="topic-card fach-psycho">
+        <div class="topic-fach"><span class="topic-emoji">🧠</span>Psychologie</div>
+        <div class="topic-title">Wie funktioniert Gedächtnis — und warum vergessen wir so viel?</div>
+        <div class="topic-teaser">Erinnerungen sind keine Aufnahmen — sie werden jedes Mal neu zusammengesetzt. Und dabei verändert.</div>
+      </div>
     </div>
   </section>
 
