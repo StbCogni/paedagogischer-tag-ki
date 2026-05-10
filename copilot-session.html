@@ -106,6 +106,18 @@
   .highlight-box { margin-top: 20px; padding: 12px 16px; background: #e8eef7; border-left: 3px solid var(--c-fach); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: var(--c-fach); }
   .highlight-box a { color: var(--c-fach); font-weight: 600; }
 
+  /* ─── RAKETE ─────────────────────────────── */
+  .rakete-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 20px; }
+  .rakete-box summary { display: flex; align-items: center; gap: 10px; padding: 13px 18px; cursor: pointer; list-style: none; user-select: none; -webkit-user-select: none; font-size: 0.9rem; font-weight: 700; color: var(--c-fach); background: #e8eef7; }
+  .rakete-box summary::-webkit-details-marker { display: none; }
+  .rakete-box summary::marker { display: none; }
+  .rakete-box summary:hover { background: #d8e4f3; }
+  .rakete-inner { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; }
+  .rakete-item { display: flex; align-items: flex-start; gap: 12px; background: var(--surface-alt); border-radius: 8px; padding: 9px 12px; font-size: 0.87rem; }
+  .rakete-letter { font-size: 1.4rem; font-weight: 700; color: var(--c-fach); min-width: 1.6rem; line-height: 1.2; }
+  .rakete-item-body p:first-child { font-weight: 600; font-size: 0.88rem; }
+  .rakete-item-body p:last-child { font-size: 0.8rem; color: var(--text-muted); }
+
   footer { background: var(--surface); border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; font-size: 0.83rem; color: var(--text-muted); margin-top: 48px; }
 
   @media (max-width: 600px) {
@@ -143,6 +155,18 @@
     ⚠️ <strong>Keine personenbezogenen Daten eingeben.</strong> Andere KI-Tools dürfen gerne ebenfalls genutzt und ausprobiert werden.
   </div>
   <p class="intro">Wählt eine Aufgabenkarte aus, bildet Dreiergruppen und probiert eigenständig mit Copilot aus. Klappe eine Karte auf, um Aufgabe und Leitfragen zu sehen.</p>
+
+  <details class="rakete-box">
+    <summary>🚀 Hilfskarte: RAKETE-Methode für gutes Prompting</summary>
+    <div class="rakete-inner">
+      <div class="rakete-item"><span class="rakete-letter">R</span><div class="rakete-item-body"><p>Rolle zuweisen</p><p>Gib der KI eine klare Perspektive: „Du bist eine erfahrene Grundschullehrerin mit Schwerpunkt Inklusion …" Je konkreter die Rolle, desto passgenauer die Antworten — die KI passt Ton, Fachwissen und Fokus automatisch an.</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">A</span><div class="rakete-item-body"><p>Aufgabe definieren</p><p>Formuliere präzise, was die KI tun soll — nicht nur das Thema, sondern die konkrete Handlung: „Erstelle …", „Erkläre … in drei Schritten", „Vergleiche … und empfehle …". Vage Aufgaben führen zu vagen Antworten.</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">K</span><div class="rakete-item-body"><p>Kontext liefern</p><p>Teile relevante Hintergrundinformationen mit: Klassenstufe, Vorkenntnisse der Schüler, Rahmenbedingungen, bisherige Versuche. Je mehr nützlicher Kontext, desto weniger muss die KI raten.</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">E</span><div class="rakete-item-body"><p>Einschränkungen setzen</p><p>Grenze ein, was die KI nicht tun soll: „Verwende keine Fachbegriffe", „Nicht länger als eine Seite", „Keine Hausaufgaben vorschlagen". Einschränkungen verhindern unnötige Umwege und unerwünschte Inhalte.</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">T</span><div class="rakete-item-body"><p>Ton &amp; Format festlegen</p><p>Bestimme, wie die Antwort aussehen soll: formell oder locker, Stichpunkte oder Fließtext, Tabelle oder Brief. Beispiel: „Schreib in einem freundlichen, sachlichen Ton — maximal 5 Stichpunkte."</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">E</span><div class="rakete-item-body"><p>Ergebnis prüfen &amp; anpassen</p><p>Bewerte die Antwort kritisch: Stimmt der Inhalt? Fehlt etwas? Ist der Ton passend? Verfeinere den Prompt und starte eine neue Runde — gutes Prompting ist ein Dialog, kein einmaliger Befehl.</p></div></div>
+    </div>
+  </details>
 
   <div class="accordion">
 

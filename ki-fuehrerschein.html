@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KI-Führerschein · Pädagogischer Tag TBS</title>
+<style>
+  :root {
+    --bg: #f8f7f4; --surface: #ffffff; --surface-alt: #f1efe9;
+    --border: #e0ddd5; --text: #1a1a1a; --text-muted: #6b6860;
+    --accent: #2d6a4f; --accent2: #1d4e89; --accent2-light: #e8eef7;
+    --gold: #a16207;
+    --radius: 10px; --shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.6; }
+
+  header { background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 60%, #3a8c6a 100%); color: white; padding: 36px 32px; text-align: center; }
+  .header-logo { width: 56px; height: 56px; object-fit: contain; margin-bottom: 12px; filter: brightness(0) invert(1); opacity: 0.9; }
+  header .school-name { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.65); margin-bottom: 8px; }
+  header h1 { font-size: clamp(1.4rem, 3.5vw, 2.2rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 10px; }
+  header .meta { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+
+  .back-bar { background: white; border-bottom: 1px solid var(--border); padding: 10px 24px; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+
+  main { max-width: 860px; margin: 0 auto; padding: 40px 24px 64px; }
+  section + section { margin-top: 48px; }
+
+  .section-title { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--accent2); display: flex; align-items: center; gap: 8px; }
+
+  .context-box { background: var(--accent2-light); border-left: 4px solid var(--accent2); padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 32px; font-size: 0.9rem; line-height: 1.6; }
+  .context-box strong { color: var(--accent2); }
+
+  /* Rahmen-Grid */
+  .rahmen-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .rahmen-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; text-align: center; box-shadow: var(--shadow); }
+  .rahmen-card .big { font-size: 2.2rem; font-weight: 700; color: var(--accent2); display: block; line-height: 1; margin-bottom: 6px; }
+  .rahmen-card p { font-size: 0.84rem; color: var(--text-muted); }
+
+  /* Lernziele */
+  .lernziele-list { display: flex; flex-direction: column; gap: 10px; }
+  .lernziel-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; display: grid; grid-template-columns: 2.2rem 1fr; gap: 0 14px; align-items: start; box-shadow: var(--shadow); }
+  .lernziel-num { font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1.1; }
+  .lernziel-item h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 3px; }
+  .lernziel-item p { font-size: 0.87rem; color: #3a3a3a; }
+
+  /* PRISMA */
+  .prisma-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media (max-width: 560px) { .prisma-grid { grid-template-columns: repeat(2, 1fr); } }
+  .prisma-card { background: #1a1a1a; color: #f8f7f4; border-radius: var(--radius); padding: 14px 16px; }
+  .prisma-letter { font-size: 1.8rem; font-weight: 700; color: #c8932a; display: block; line-height: 1; }
+  .prisma-word { font-weight: 600; font-size: 0.8rem; letter-spacing: 0.04em; margin: 4px 0 6px; }
+  .prisma-desc { font-size: 0.78rem; color: rgba(248,247,244,0.65); line-height: 1.5; }
+  .prisma-leitfrage { background: var(--accent2-light); border-left: 3px solid var(--accent2); border-radius: 0 8px 8px 0; padding: 12px 16px; margin-top: 14px; font-size: 0.88rem; }
+  .prisma-leitfrage em { font-style: italic; color: var(--accent2); }
+
+  /* RAKETE */
+  .rakete-list { display: flex; flex-direction: column; gap: 8px; }
+  .rakete-item { display: flex; align-items: flex-start; gap: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; box-shadow: var(--shadow); }
+  .rakete-letter { font-size: 1.6rem; font-weight: 700; color: var(--accent2); min-width: 1.8rem; line-height: 1.1; }
+  .rakete-item-body p:first-child { font-weight: 600; font-size: 0.9rem; }
+  .rakete-item-body p:last-child { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* Methodik-Cards */
+  .methodik-grid { display: flex; flex-direction: column; gap: 10px; }
+  .methodik-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 18px; box-shadow: var(--shadow); }
+  .methodik-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 5px; }
+  .methodik-card p { font-size: 0.87rem; color: #3a3a3a; }
+
+  /* Tabelle */
+  .table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 0.87rem; }
+  thead tr { background: #1a1a1a; color: #f8f7f4; }
+  thead th { padding: 10px 14px; text-align: left; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  tbody tr:nth-child(even) { background: var(--surface-alt); }
+  tbody td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody td:first-child { font-weight: 600; color: var(--accent2); white-space: nowrap; }
+
+  /* Leitsatz */
+  .leitsatz { background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 100%); border-radius: 14px; padding: 36px 28px; text-align: center; margin-top: 48px; }
+  .leitsatz blockquote { font-size: clamp(1rem, 2.5vw, 1.3rem); font-weight: 600; font-style: italic; color: white; line-height: 1.5; max-width: 600px; margin: 0 auto 10px; }
+  .leitsatz cite { font-size: 0.8rem; color: rgba(255,255,255,0.55); font-style: normal; }
+
+  .quelle { margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.78rem; color: #888; line-height: 1.8; }
+  .quelle a { color: var(--accent2); text-decoration: none; }
+  .quelle a:hover { text-decoration: underline; }
+
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 0.83rem; color: var(--text-muted); margin-top: 56px; }
+
+  @media (max-width: 600px) {
+    header { padding: 28px 18px; }
+    main { padding: 28px 14px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="header-logo" src="https://turmbergschule-weingarten.de/wp-content/themes/tbs/img/assets/logo-kachel.svg" alt="TBS Logo">
+  <p class="school-name">Turmbergschule Weingarten</p>
+  <h1>KI-Führerschein<br>Carl-Fuhlrott-Gymnasium</h1>
+  <p class="meta">🏆 KI-Schulpreis 2025 · 1. Platz Deutschland · Impulse für unsere Schulpraxis</p>
+</header>
+
+<div class="back-bar">
+  <a href="index.html" class="back-link">← Zurück zum Tagesablauf</a>
+</div>
+
+<main>
+
+  <div class="context-box">
+    <strong>Kontext:</strong> Das Carl-Fuhlrott-Gymnasium Wuppertal gewann den bundesweiten KI-Schulpreis 2025 (Kategorie „KI-Gesamtkonzept") aus 191 Bewerbungen. Herzstück ist der KI-Führerschein, den alle SuS ab Klasse 8 absolvieren – eingebettet in ein schulweites KI-Konzept mit dem PRISMA-Modell, eigenen KI-Agents und dem Schulbot „Carl".
+  </div>
+
+  <section>
+    <p class="section-title"><span>📋</span> Rahmenbedingungen</p>
+    <div class="rahmen-grid">
+      <div class="rahmen-card"><span class="big">8</span><p>Ab Klasse 8 verpflichtend für alle SuS</p></div>
+      <div class="rahmen-card"><span class="big">1:1</span><p>iPad-Ausstattung ab Kl. 8; jüngere Klassen: Tablet-Wagen</p></div>
+      <div class="rahmen-card"><span class="big">DSGVO</span><p>Ausschließlich datenschutzkonforme Tools im Einsatz</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-title"><span>🎯</span> Lernziele – Die 4 Kernregeln</p>
+    <div class="lernziele-list">
+      <div class="lernziel-item"><span class="lernziel-num">1</span><div><h3>Lernförderlichkeit</h3><p>KI muss das Lernen unterstützen – sie ist Lernpartner, kein Ersatz für eigenes Denken und Arbeiten.</p></div></div>
+      <div class="lernziel-item"><span class="lernziel-num">2</span><div><h3>Datenschutz</h3><p>Keine Weitergabe privater Daten. Datenschutzrechtlich problematische Tools werden konsequent nicht genutzt.</p></div></div>
+      <div class="lernziel-item"><span class="lernziel-num">3</span><div><h3>Transparenz &amp; Fairness</h3><p>KI-Leistungen werden nicht als eigene ausgegeben. Kennzeichnungspflicht für KI-unterstützte Beiträge.</p></div></div>
+      <div class="lernziel-item"><span class="lernziel-num">4</span><div><h3>Kritisches Denken</h3><p>KI-Antworten werden stets aktiv hinterfragt. Eigenständige Überprüfung ist obligatorisch.</p></div></div>
+    </div>
+    <p style="margin-top:12px; font-size:0.87rem; color:var(--text-muted);"><strong>Übergeordnetes Ziel:</strong> Stärkung digitaler Mündigkeit und Selbststeuerung der SuS.</p>
+  </section>
+
+  <section>
+    <p class="section-title"><span>🔷</span> Methodik I: Das PRISMA-Modell</p>
+    <p style="margin-bottom:14px; font-size:0.9rem; color:var(--text-muted);">Didaktisches Entscheidungsraster für alle KI-Entscheidungen im Unterricht – entwickelt von KI-Koordinator Felix Urban.</p>
+    <div class="prisma-grid">
+      <div class="prisma-card"><span class="prisma-letter">P</span><div class="prisma-word">Potenziale</div><div class="prisma-desc">Was kann KI in dieser Lernsituation leisten?</div></div>
+      <div class="prisma-card"><span class="prisma-letter">R</span><div class="prisma-word">Risiken</div><div class="prisma-desc">Datenschutz, Desinformation, Abhängigkeit</div></div>
+      <div class="prisma-card"><span class="prisma-letter">I</span><div class="prisma-word">Integration</div><div class="prisma-desc">Wie wird KI sinnvoll in den Unterricht eingebettet?</div></div>
+      <div class="prisma-card"><span class="prisma-letter">S</span><div class="prisma-word">Selbstständigkeit</div><div class="prisma-desc">Fördert der Einsatz eigenständiges Denken?</div></div>
+      <div class="prisma-card"><span class="prisma-letter">M</span><div class="prisma-word">Mehrwert</div><div class="prisma-desc">Ist KI hier besser als herkömmliche Methoden?</div></div>
+      <div class="prisma-card"><span class="prisma-letter">A</span><div class="prisma-word">Analyse</div><div class="prisma-desc">Reflexion und Auswertung des KI-Einsatzes</div></div>
+    </div>
+    <div class="prisma-leitfrage"><strong>Leitfrage:</strong> <em>„Erst: Was will ich unterrichten? Dann: Kann KI da unterstützen – oder nicht?"</em></div>
+  </section>
+
+  <section>
+    <p class="section-title"><span>🚀</span> Methodik II: Das RAKETE-Prompting-Framework</p>
+    <p style="margin-bottom:14px; font-size:0.9rem; color:var(--text-muted);">Strukturierter Ansatz, damit SuS präzise und zielführende Anfragen an KI-Systeme stellen lernen.</p>
+    <div class="rakete-list">
+      <div class="rakete-item"><span class="rakete-letter">R</span><div class="rakete-item-body"><p>Rolle zuweisen</p><p>„Du bist ein Mathelehrer …" – eine klare Rolle verbessert die Ergebnisqualität messbar</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">A</span><div class="rakete-item-body"><p>Aufgabe definieren</p><p>Was genau soll die KI tun? Eine klare Handlungsanweisung formulieren</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">K</span><div class="rakete-item-body"><p>Kontext liefern</p><p>Hintergrundinformationen und Rahmenbedingungen angeben</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">E</span><div class="rakete-item-body"><p>Einschränkungen setzen</p><p>Was soll die KI nicht tun oder welche Grenzen soll sie beachten?</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">T</span><div class="rakete-item-body"><p>Ton &amp; Format festlegen</p><p>Länge, Sprache und Ausgabeformat bestimmen</p></div></div>
+      <div class="rakete-item"><span class="rakete-letter">E</span><div class="rakete-item-body"><p>Ergebnis prüfen &amp; anpassen</p><p>KI-Output kritisch bewerten und iterativ verbessern</p></div></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-title"><span>🛠️</span> Methodik III: Weitere didaktische Elemente</p>
+    <div class="methodik-grid">
+      <div class="methodik-card"><h3>🤖 KI als Coach, nicht als Antwortmaschine</h3><p>Eigene didaktische KI-Agents führen SuS schrittweise durch Aufgaben, indem sie gezielte Rückfragen stellen – statt fertige Lösungen zu liefern.</p></div>
+      <div class="methodik-card"><h3>🛠️ Praxisprojekt als Abschluss</h3><p>SuS entwickeln ein eigenes digitales Produkt, das ein reales Schulproblem löst. Verbindung von Theorie und Praxis.</p></div>
+      <div class="methodik-card"><h3>🔄 Regelmäßige Reflexion</h3><p>SuS reflektieren ihre KI-Nutzung strukturiert. KI-Beiträge werden gekennzeichnet. Kritisches Hinterfragen von KI-Outputs wird fest in Aufgaben verankert.</p></div>
+      <div class="methodik-card"><h3>☕ Digitales Kaffeetrinken (LK-Fortbildung)</h3><p>Niederschwellige Online-Kurzfortbildungen von Lehrkräften für Lehrkräfte – kollegialer Wissenstransfer als Treiber der schulweiten KI-Kultur.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="section-title"><span>💡</span> Anhaltspunkte für unsere Schule</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Aspekt</th><th>Empfehlung aus dem CFG-Modell</th></tr></thead>
+        <tbody>
+          <tr><td>Einstiegsklasse</td><td>Ab Kl. 8 verpflichtend; jüngere Klassen mit geteilten Tablet-Wagen einbeziehen</td></tr>
+          <tr><td>Grundhaltung</td><td>KI als Lernpartner definieren – nicht als Hausaufgabenhelfer oder Abschreibwerkzeug</td></tr>
+          <tr><td>Prompting</td><td>Strukturiert lehren (RAKETE-Logik): Rolle zuweisen, präzise formulieren, Ergebnis prüfen</td></tr>
+          <tr><td>Datenschutz</td><td>Nur DSGVO-konforme Tools; keine privaten Daten in Prompts eingeben</td></tr>
+          <tr><td>Transparenz</td><td>Kennzeichnung von KI-unterstützten Beiträgen verbindlich als Schulregel einführen</td></tr>
+          <tr><td>Reflexion</td><td>Kritisches Hinterfragen von KI-Outputs als festen Aufgabenbestandteil integrieren</td></tr>
+          <tr><td>Lehrkräfte</td><td>Niederschwellige Fortbildungsformate schaffen (Peer-Sharing, kurze Impulse)</td></tr>
+          <tr><td>Entscheidungsraster</td><td>Vor jedem KI-Einsatz: Inhalt zuerst – dann KI-Mehrwert prüfen (PRISMA-Logik)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="leitsatz">
+    <blockquote>„KI ist kein Ersatz für eigenes Denken –<br>sondern eine Erweiterung von Möglichkeiten."</blockquote>
+    <cite>Leitprinzip des Carl-Fuhlrott-Gymnasiums Wuppertal · KI-Schulpreis 2025, 1. Platz</cite>
+  </div>
+
+  <div class="quelle">
+    <strong>Quellen:</strong>
+    <a href="https://ki-schulpreis.land-der-ideen.de/schulen/carl-fuhlrott-gymnasium-wuppertal" target="_blank">KI-Schulpreis – Schulprofil CFG</a> ·
+    <a href="https://www.talzeit.de/lokales/wuppertal/article411373207/wuppertals-ki-schule-wie-das-carl-fuhlrott-gymnasium-den-schulpreis-gewann.html" target="_blank">talzeit.de, März 2026</a> ·
+    <a href="https://www.njuuz.de/home/leute/carl-fuhlrott-gymnasium-wuppertal-gewinnt-1-platz-beim-ki-schulpreis-2025/" target="_blank">njuuz.de, Januar 2026</a>
+    · Zusammenfassung erstellt mit Claude (Anthropic), Mai 2026
+  </div>
+
+</main>
+
+<footer><strong>Hinweis:</strong> Diese Seite fasst das KI-Konzept des CFG Wuppertal als Impulsgeber für die eigene Schulentwicklung zusammen.</footer>
+
+</body>
+</html>

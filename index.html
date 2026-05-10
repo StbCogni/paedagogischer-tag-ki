@@ -81,10 +81,15 @@
   footer { background: var(--surface); border-top: 1px solid var(--border); padding: 24px; text-align: center; font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; margin-top: 56px; }
   footer strong { color: var(--text); }
 
+  .qr-float { position: fixed; right: 20px; bottom: 24px; z-index: 200; background: white; border: 1px solid var(--border); border-radius: 10px; padding: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); text-align: center; width: 100px; }
+  .qr-float img { width: 84px; height: 84px; display: block; }
+  .qr-float span { display: block; font-size: 0.6rem; color: var(--text-muted); margin-top: 5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
   @media (max-width: 600px) {
     header { padding: 28px 18px 30px; } main { padding: 28px 14px 48px; }
     .timeline { padding-left: 26px; } .timeline-item::before { left: -20px; } .timeline::before { left: 5px; }
     .session-nav { gap: 8px; padding: 10px 14px; }
+    .qr-float { display: none; }
   }
 </style>
 </head>
@@ -138,19 +143,14 @@
       <div class="card-body">Warum ich hier bin und wie KI meinen Arbeitsalltag verändert hat. Brücke zum Schulalltag der Lehrkräfte.</div>
     </div></div>
 
-    <div class="timeline-item c-teal"><div class="timeline-card">
-      <div class="card-meta"><span class="card-time">08:45 – 09:15</span><span class="card-duration">30 Min</span><span class="tag tag-plenum">Plenum</span></div>
-      <div class="card-title">Live-Demo: KI Stärken &amp; Schwächen</div>
-      <div class="card-body">Alles live im Browser — kein Foliensatz:
-        <ul><li>KI erklärt Photosynthese für Klasse 5 und Abitur</li><li>KI erfindet eine falsche Quelle (Halluzination zeigen)</li><li>KI schreibt einen Elternbrief, Gruppe verbessert ihn</li><li>KI bewertet einen Schülertext — war das fair?</li></ul>
-      </div>
-    </div></div>
-
     <div class="timeline-item c-blue"><div class="timeline-card">
-      <div class="card-meta"><span class="card-time">09:15 – 10:15</span><span class="card-duration">60 Min</span><span class="tag tag-group">Kleingruppen</span><img class="card-tool-icon" src="https://img.icons8.com/fluency/96/microsoft-copilot.png" alt="Copilot"></div>
+      <div class="card-meta"><span class="card-time">08:45 – 10:15</span><span class="card-duration">90 Min</span><span class="tag tag-group">Kleingruppen</span><img class="card-tool-icon" src="https://img.icons8.com/fluency/96/microsoft-copilot.png" alt="Copilot"></div>
       <div class="card-title">Copilot-Session: Ausprobieren</div>
       <div class="card-body">Freie Wahl einer Aufgabenkarte, Dreiergruppen, selbstständiges Ausprobieren.
         <div class="warn-box">⚠️ <strong>Keine personenbezogenen Daten eingeben.</strong> Andere KI-Tools dürfen gerne ebenfalls genutzt werden.</div>
+        <div style="margin-top:12px; padding:10px 14px; background:var(--surface-alt); border-radius:8px; font-size:0.85rem; font-weight:600; color:var(--accent2);">
+          ▶ Optionaler Einstieg: Live-Demo KI Stärken &amp; Schwächen
+        </div>
         <div class="session-teaser">
           <p>8 Aufgabenkarten für verschiedene Rollen — Fachlehrkraft, Lerncoach, Schulentwicklung.</p>
           <a href="copilot-session.html" class="btn-sm btn-sm-copilot">Zu den Aufgabenkarten →</a>
@@ -158,27 +158,21 @@
       </div>
     </div></div>
 
+    <div class="timeline-item is-pause"><div class="timeline-card">
+      <div class="card-meta"><span class="card-time">10:15 – 10:30</span><span class="card-duration">15 Min</span><span class="tag tag-pause">Pause</span></div>
+      <div class="card-title">Kaffeepause</div>
+    </div></div>
+
     <div class="timeline-item c-blue"><div class="timeline-card">
-      <div class="card-meta"><span class="card-time">10:15 – 10:45</span><span class="card-duration">30 Min</span><span class="tag tag-plenum">Plenum</span></div>
-      <div class="card-title">Copilot-Session: Ergebnisse</div>
+      <div class="card-meta"><span class="card-time">10:30 – 11:30</span><span class="card-duration">60 Min</span><span class="tag tag-plenum">Plenum</span></div>
+      <div class="card-title">Copilot-Session: Ergebnisse &amp; Austausch</div>
       <div class="card-body">Jede Gruppe stellt ihren besten Fund und größte Überraschung vor. Gemeinsame Diskussion.
         <div class="highlight-box">📌 Ergebnisse auf dem Board: <a href="https://www.edumaps.de/66642/330293/ibeal4t3ce/aytvthupt2" target="_blank">edumaps.de → Board öffnen</a></div>
       </div>
     </div></div>
 
-    <div class="timeline-item is-pause"><div class="timeline-card">
-      <div class="card-meta"><span class="card-time">10:45 – 11:00</span><span class="card-duration">15 Min</span><span class="tag tag-pause">Pause</span></div>
-      <div class="card-title">Pause</div>
-    </div></div>
-
-    <div class="timeline-item c-green"><div class="timeline-card">
-      <div class="card-meta"><span class="card-time">11:00 – 11:15</span><span class="card-duration">15 Min</span><span class="tag tag-plenum">Plenum</span></div>
-      <div class="card-title">Eingangsreflexion Ergebnisse</div>
-      <div class="card-body">Die Morgenreflexion wurde im Hintergrund per Claude geclustert. Ergebnisse werden jetzt im Plenum vorgestellt.</div>
-    </div></div>
-
     <div class="timeline-item c-orange"><div class="timeline-card">
-      <div class="card-meta"><span class="card-time">11:15 – 12:30</span><span class="card-duration">75 Min</span><span class="tag tag-plenum">Plenum</span></div>
+      <div class="card-meta"><span class="card-time">11:30 – 12:30</span><span class="card-duration">60 Min</span><span class="tag tag-plenum">Plenum</span></div>
       <div class="card-title">Datenschutz</div>
       <div class="card-body">Dialogischer Input vom Staatlichen Schulamt. Lehrkräfte bringen konkrete Fragen aus dem Vormittag mit. Kein Frontalvortrag.</div>
     </div></div>
@@ -209,17 +203,28 @@
       <div class="card-meta"><span class="card-time">14:30 – 15:15</span><span class="card-duration">45 Min</span><span class="tag tag-plenum">Plenum</span></div>
       <div class="card-title">Metaebene</div>
       <div class="card-body">Offene Reflexion: Was muss ich Schülern bei der KI-gestützten Recherche mit auf den Weg geben?
-        <div class="impulse-list">
-          <div class="impulse-item">Was waren deine heutigen Stolpersteine — und was kannst du Schülern davon mitgeben?</div>
-          <div class="impulse-item">Wo hast du heute KI-Ergebnisse hinterfragt und reflektiert?</div>
-          <div class="impulse-item">Wie erkenne ich als Schüler, ob ich der KI gerade zu sehr vertraue?</div>
-          <div class="impulse-item">Woran erkenne ich, ob eine Quelle die mir Perplexity nennt, wirklich existiert?</div>
-          <div class="impulse-item">Wie kann ich Schülern beibringen, Quellen zu prüfen, wenn die KI sie schon zusammengefasst hat?</div>
-          <div class="impulse-item">Welche Recherchekompetenzen brauchen Schüler mehr, seitdem KI die erste Antwort liefert?</div>
-        </div>
+        <details style="margin-top:10px; background:var(--surface-alt); border-radius:8px; overflow:hidden;">
+          <summary style="padding:10px 14px; font-size:0.85rem; font-weight:600; color:var(--text-muted); cursor:pointer; list-style:none;">
+            ▶ Impulsfragen zur Reflexion
+          </summary>
+          <div style="padding:4px 14px 14px;">
+            <div class="impulse-list">
+              <div class="impulse-item">Was waren deine heutigen Stolpersteine — und was kannst du Schülern davon mitgeben?</div>
+              <div class="impulse-item">Wo hast du heute KI-Ergebnisse hinterfragt und reflektiert?</div>
+              <div class="impulse-item">Wie erkenne ich als Schüler, ob ich der KI gerade zu sehr vertraue?</div>
+              <div class="impulse-item">Woran erkenne ich, ob eine Quelle die mir Perplexity nennt, wirklich existiert?</div>
+              <div class="impulse-item">Wie kann ich Schülern beibringen, Quellen zu prüfen, wenn die KI sie schon zusammengefasst hat?</div>
+              <div class="impulse-item">Welche Recherchekompetenzen brauchen Schüler mehr, seitdem KI die erste Antwort liefert?</div>
+            </div>
+          </div>
+        </details>
         <div class="arbeitsauftrag">
           <strong>Arbeitsauftrag</strong>
           Schreibe deine wichtigsten Gedanken auf Metaplankarten. Tausche dich dann zu dritt aus und verdichtet eure Antworten auf die wesentlichen Punkte.
+        </div>
+        <div class="session-teaser">
+          <p>Impuls: Wie macht das eine Schule, die den KI-Schulpreis 2025 gewonnen hat?</p>
+          <a href="ki-fuehrerschein.html" class="btn-sm btn-sm-copilot">KI-Führerschein CFG →</a>
         </div>
       </div>
     </div></div>
@@ -232,7 +237,7 @@
     <div class="timeline-item c-teal"><div class="timeline-card">
       <div class="card-meta"><span class="card-time">15:30 – 15:50</span><span class="card-duration">20 Min</span><span class="tag tag-plenum">Plenum</span></div>
       <div class="card-title">1×1 der KI-gestützten Recherche</div>
-      <div class="card-body">Aus den gesammelten Stichpunkten wurde im Hintergrund per Claude eine Rohfassung erstellt. Gemeinsam anschauen, ergänzen, abnicken. Dieses Dokument nehmen alle mit.</div>
+      <div class="card-body">Aus den gesammelten Stichpunkten wurde im Hintergrund per Claude eine Rohfassung erstellt. Gemeinsam anschauen, ergänzen, finalisieren. Dieses Dokument nehmen alle mit.</div>
     </div></div>
 
     <div class="timeline-item c-gold"><div class="timeline-card">
@@ -250,6 +255,11 @@
   <blockquote>Was möchte ich morgen ausprobieren — und was werde ich bewusst nicht der KI überlassen?</blockquote>
 </div>
 </main>
+
+<div class="qr-float">
+  <img src="https://api.qrserver.com/v1/create-qr-code/?size=168x168&data=https://stbcogni.github.io/paedagogischer-tag-ki/" alt="QR-Code zur Homepage">
+  <span>Homepage</span>
+</div>
 
 <footer><strong>Hinweis:</strong> Das <em>1×1 der KI-gestützten Recherche</em> wird am Ende des Tages gemeinsam erarbeitet und steht allen Teilnehmenden zur Verfügung.</footer>
 </body>
