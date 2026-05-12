@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Impuls — Stichworte</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0c;
+    --surface: #141414;
+    --accent: #E8FF47;
+    --accent-dim: rgba(232,255,71,0.08);
+    --text: #f5f5f0;
+    --muted: #3a3a3a;
+    --done: #1e1e1e;
+    --border: #222;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 0;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .header {
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .timer-display {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 3px;
+    transition: color 0.5s;
+  }
+
+  .timer-display.running { color: var(--accent); }
+  .timer-display.warning { color: #ff4444; }
+
+  .main {
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .block {
+    display: grid;
+    grid-template-columns: 52px 36px 1fr 12px;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 20px 16px 0;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 0 8px 8px 0;
+    animation: slideIn 0.4s ease both;
+  }
+
+  .block:nth-child(1) { animation-delay: 0.05s; }
+  .block:nth-child(2) { animation-delay: 0.10s; }
+  .block:nth-child(3) { animation-delay: 0.15s; }
+  .block:nth-child(4) { animation-delay: 0.20s; }
+  .block:nth-child(5) { animation-delay: 0.25s; }
+  .block:nth-child(6) { animation-delay: 0.30s; }
+  .block:nth-child(7) { animation-delay: 0.35s; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-12px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .block:hover:not(.done):not(.active) { background: rgba(255,255,255,0.02); }
+
+  .block.active {
+    border-left-color: var(--accent);
+    background: var(--accent-dim);
+    padding: 24px 20px 24px 24px;
+    margin: 4px 0;
+  }
+
+  .block.active .num { color: var(--accent); }
+  .block.active .label { font-size: 36px; color: var(--text); }
+  .block.active .sub { color: rgba(245,245,240,0.5); font-size: 13px; }
+  .block.active .dot {
+    background: var(--accent);
+    opacity: 1;
+    animation: blink 1s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .block.done {
+    opacity: 0.1;
+    pointer-events: none;
+    animation: none;
+  }
+
+  .block.done .label { text-decoration: line-through; }
+
+  .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-align: right;
+    transition: all 0.3s;
+  }
+
+  .label {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: rgba(245,245,240,0.85);
+    transition: all 0.3s;
+  }
+
+  .sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #666;
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+  }
+
+  .block-icon {
+    font-size: 20px;
+    color: var(--muted);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+  }
+
+  .block.active .block-icon {
+    color: var(--accent);
+    font-size: 24px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    opacity: 0.3;
+    justify-self: end;
+    transition: all 0.3s;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.3; transform: scale(0.7); }
+  }
+
+  .footer {
+    padding: 20px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .progress-bar-bg {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    border-radius: 999px;
+    margin: 0 24px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 999px;
+    width: 0%;
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .hint {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-meta">Persönlicher Impuls · 15 Min</div>
+  <div class="timer-display" id="timer">00:00</div>
+</div>
+
+<div class="main">
+  <div class="block active" onclick="advance(this)">
+    <span class="num">01</span>
+    <span class="block-icon"><i class="ti ti-microphone" aria-hidden="true"></i></span>
+    <div>
+      <div class="label">Eröffnung</div>
+      <div class="sub">Ein Job den es vor 2 Jahren nicht gab</div>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="block" onclick="advance(this)">
+    <span class="num">02</span>
+    <span class="block-icon"><i class="ti ti-sparkles" aria-hidden="true"></i></span>
+    <div>
+      <div class="label">Das Staunen</div>
+      <div class="sub">Vibe-Coding · diese Webseite · jeden Tag</div>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="block" onclick="advance(this)">
+    <span class="num">03</span>
+    <span class="block-icon"><i class="ti ti-bolt" aria-hidden="true"></i></span>
+    <div>
+      <div class="label">Live-Moment ⚡</div>
+      <div class="sub">Murmeltier-Referat · 45 Sekunden · was bewertet ihr noch?</div>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="block" onclick="advance(this)">
+    <span class="num">04</span>
+    <span class="block-icon"><i class="ti ti-help" aria-hidden="true"></i></span>
+    <div>
+      <div class="label">Die unbequeme Frage</div>
+      <div class="sub">Übernimmt KI meinen Job? Keine Antwort.</div>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="block" onclick="advance(this)">
+    <span class="num">05</span>
+    <span class="block-icon"><i class="ti ti-trending-up" aria-hidden="true"></i></span>
+    <div>
+      <div class="label">Der Veränderungsdruck</div>
+      <div class="sub">Optiker · KI schafft Platz fürs Menschliche</div>
+    </div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="block" onclick="advance(this)">
+    <span class="num">06</span>
+    <span class="block-icon"><i class="ti ti-flag" aria-hidden="true"></i></span>
+    <div>
+      <div class="label">Warum ich hier bin · Abschluss</div>
+      <div class="sub">Aufklärung · Reflexion · der wichtigere Job</div>
+    </div>
+    <div class="dot"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="hint">Tippen zum Weiter</div>
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill" id="progress"></div>
+  </div>
+  <div class="hint" id="step-counter">1 / 6</div>
+</div>
+
+<script>
+  let started = false;
+  let seconds = 0;
+  let currentStep = 1;
+  const total = 6;
+  const timerEl = document.getElementById('timer');
+  const progressEl = document.getElementById('progress');
+  const stepEl = document.getElementById('step-counter');
+
+  function startTimer() {
+    if (started) return;
+    started = true;
+    timerEl.classList.add('running');
+    setInterval(() => {
+      seconds++;
+      const m = String(Math.floor(seconds / 60)).padStart(2, '0');
+      const s = String(seconds % 60).padStart(2, '0');
+      timerEl.textContent = m + ':' + s;
+      if (seconds >= 900) {
+        timerEl.classList.remove('running');
+        timerEl.classList.add('warning');
+      }
+    }, 1000);
+  }
+
+  function advance(el) {
+    startTimer();
+    el.classList.remove('active');
+    el.classList.add('done');
+    const blocks = document.querySelectorAll('.block');
+    let found = false;
+    blocks.forEach(b => {
+      if (!found && !b.classList.contains('done')) {
+        b.classList.add('active');
+        found = true;
+        currentStep++;
+      }
+    });
+    const done = document.querySelectorAll('.block.done').length;
+    progressEl.style.width = (done / total * 100) + '%';
+    stepEl.textContent = Math.min(currentStep, total) + ' / ' + total;
+  }
+</script>
+</body>
+</html>
