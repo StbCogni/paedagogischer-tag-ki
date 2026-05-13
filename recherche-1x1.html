@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Das 1×1 der Internetrecherche · Pädagogischer Tag TBS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:    #1D9E75;
+      --teal-bg: #E1F5EE;
+      --blue:    #185FA5;
+      --blue-bg: #E6F1FB;
+      --amber:   #BA7517;
+      --amber-bg:#FAEEDA;
+      --red:     #A32D2D;
+      --red-bg:  #FCEBEB;
+      --coral:   #993C1D;
+      --coral-bg:#FAECE7;
+      --purple:  #534AB7;
+      --purple-bg:#EEEDFE;
+      --gray:    #444441;
+      --gray-bg: #F1EFE8;
+      --text:    #1a1a18;
+      --muted:   #666660;
+      --border:  rgba(0,0,0,0.09);
+      --bg:      #f7f6f2;
+      --white:   #ffffff;
+    }
+
+    body {
+      font-family: 'Nunito', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 0 0 3rem;
+      line-height: 1.5;
+    }
+
+    /* ── BACK BAR ── */
+    .back-bar {
+      background: white;
+      border-bottom: 1px solid #e0ddd5;
+      padding: 10px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ── DRAFT BANNER ── */
+    .draft-banner {
+      background: #fff8e1;
+      border-bottom: 2px solid #f0b429;
+      padding: 10px 24px;
+      text-align: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #7a5c00;
+    }
+
+    /* ── CONTENT ── */
+    .page-content {
+      padding: 2rem 1rem 3rem;
+    }
+
+    /* ── HEADER ── */
+    .page-header {
+      max-width: 900px;
+      margin: 0 auto 2.5rem;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--purple-bg);
+      color: var(--purple);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 0.8rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-header h1 span { color: var(--teal); }
+
+    .page-header p {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ── GRID ── */
+    .grid {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--white);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.4rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .card.wide { grid-column: 1 / -1; }
+
+    .card-icon { font-size: 2rem; margin-bottom: 0.6rem; line-height: 1; }
+    .card-label {
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .card h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.9rem; line-height: 1.25; }
+
+    .card.teal   { border-top: 4px solid var(--teal);   }
+    .card.blue   { border-top: 4px solid var(--blue);   }
+    .card.amber  { border-top: 4px solid var(--amber);  }
+    .card.red    { border-top: 4px solid var(--red);    }
+    .card.coral  { border-top: 4px solid var(--coral);  }
+    .card.purple { border-top: 4px solid var(--purple); }
+    .card.gray   { border-top: 4px solid var(--gray);   }
+
+    .card.teal   .card-label { color: var(--teal);   }
+    .card.blue   .card-label { color: var(--blue);   }
+    .card.amber  .card-label { color: var(--amber);  }
+    .card.red    .card-label { color: var(--red);    }
+    .card.coral  .card-label { color: var(--coral);  }
+    .card.purple .card-label { color: var(--purple); }
+    .card.gray   .card-label { color: var(--gray);   }
+
+    /* ── STEPS ── */
+    .steps { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .steps li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.9rem; }
+    .step-num {
+      min-width: 26px; height: 26px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 0.8rem; flex-shrink: 0; margin-top: 1px;
+    }
+    .card.teal   .step-num { background: var(--teal-bg);   color: var(--teal);   }
+    .card.blue   .step-num { background: var(--blue-bg);   color: var(--blue);   }
+    .card.amber  .step-num { background: var(--amber-bg);  color: var(--amber);  }
+    .card.red    .step-num { background: var(--red-bg);    color: var(--red);    }
+    .card.coral  .step-num { background: var(--coral-bg);  color: var(--coral);  }
+    .card.purple .step-num { background: var(--purple-bg); color: var(--purple); }
+    .steps li strong { font-weight: 700; display: block; margin-bottom: 1px; }
+    .steps li span   { color: var(--muted); font-size: 0.82rem; }
+
+    /* ── CHECKLIST ── */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .checklist li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.9rem; }
+    .check-box {
+      min-width: 20px; height: 20px; border-radius: 5px;
+      border: 2px solid var(--border); flex-shrink: 0; margin-top: 2px;
+    }
+    .checklist li strong { font-weight: 700; }
+    .checklist li span   { color: var(--muted); font-size: 0.82rem; display: block; }
+
+    /* ── WARNSIGNALE ── */
+    .warn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .warn-item {
+      background: var(--red-bg); border-radius: 10px; padding: 8px 12px;
+      font-size: 0.85rem; font-weight: 700; color: var(--red);
+      display: flex; gap: 7px; align-items: center;
+    }
+    .warn-item .wi { font-size: 1.1rem; }
+
+    /* ── COMPARE TABLE ── */
+    .compare { width: 100%; border-collapse: collapse; font-size: 0.87rem; margin-top: 0.2rem; }
+    .compare thead tr th { padding: 8px 12px; font-weight: 800; font-size: 0.78rem; text-align: left; letter-spacing: 0.04em; }
+    .compare thead .th-classic { background: var(--blue-bg); color: var(--blue); border-radius: 8px 0 0 0; }
+    .compare thead .th-ki      { background: var(--teal-bg); color: var(--teal); border-radius: 0 8px 0 0; }
+    .compare tbody tr td { padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .compare tbody tr:last-child td { border-bottom: none; }
+    .compare tbody tr td:first-child {
+      font-weight: 700; color: var(--muted); font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;
+    }
+
+    /* ── PROMPT TIPPS ── */
+    .prompt-box {
+      background: var(--purple-bg); border-radius: 12px; padding: 12px 14px;
+      font-size: 0.85rem; color: var(--purple); font-weight: 600;
+      margin-bottom: 8px; position: relative;
+    }
+    .prompt-box::before { content: '💬'; position: absolute; top: 10px; right: 12px; font-size: 1rem; }
+    .prompt-box .label {
+      font-size: 0.65rem; font-weight: 800; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--purple); opacity: 0.6; margin-bottom: 3px;
+    }
+    .prompt-box.bad { background: var(--red-bg); color: var(--red); }
+    .prompt-box.bad::before { content: '🚫'; }
+    .prompt-box.bad .label { color: var(--red); }
+    .vs-divider { text-align: center; font-size: 0.7rem; font-weight: 900; color: var(--muted); letter-spacing: 0.1em; margin: 2px 0 6px; }
+
+    /* ── MERKSATZ ── */
+    .merksatz {
+      max-width: 900px; margin: 20px auto 0;
+      background: var(--teal); color: white; border-radius: 18px;
+      padding: 1.4rem 1.8rem; display: flex; align-items: center; gap: 16px;
+    }
+    .merksatz .m-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .merksatz p { font-size: 1rem; font-weight: 700; line-height: 1.5; }
+    .merksatz p span { font-weight: 900; font-size: 1.05rem; }
+
+    footer {
+      max-width: 900px; margin: 1.5rem auto 0;
+      font-size: 0.75rem; color: #aaa; text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .warn-grid { grid-template-columns: 1fr; }
+      .compare thead .th-classic, .compare thead .th-ki { border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="index.html" class="back-link">← Zurück zum Tagesablauf</a>
+</div>
+
+<div class="draft-banner">
+  ⚠️ Vorläufige KI-Variante — wird am Ende des Tages gemeinsam überarbeitet und finalisiert
+</div>
+
+<div class="page-content">
+
+<div class="page-header">
+  <div class="badge">Klasse 5 – 10</div>
+  <h1>Das <span>1×1</span> der Internetrecherche</h1>
+  <p>Wie du im Netz und mit KI richtig suchst – und was du dabei immer im Kopf behalten solltest.</p>
+</div>
+
+<div class="grid">
+
+  <div class="card blue">
+    <div class="card-icon">🔍</div>
+    <div class="card-label">Schritt 1</div>
+    <h2>Bevor du suchst: Frage dich das!</h2>
+    <ul class="steps">
+      <li><span class="step-num">1</span><div><strong>Was will ich wissen?</strong><span>Formuliere deine Frage so genau wie möglich, bevor du losklickst.</span></div></li>
+      <li><span class="step-num">2</span><div><strong>Wer braucht diese Information?</strong><span>Für eine Hausaufgabe? Eine Präsentation? Das ändert, welche Quellen passen.</span></div></li>
+      <li><span class="step-num">3</span><div><strong>Wie aktuell muss die Info sein?</strong><span>Manche Themen ändern sich schnell – check immer das Datum der Seite.</span></div></li>
+      <li><span class="step-num">4</span><div><strong>Reicht eine Quelle?</strong><span>Nein! Vergleiche mindestens 2–3 verschiedene Seiten miteinander.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="card teal">
+    <div class="card-icon">✅</div>
+    <div class="card-label">Quellen prüfen</div>
+    <h2>Der 4-Schritte-Check für jede Quelle</h2>
+    <ul class="steps">
+      <li><span class="step-num">1</span><div><strong>Absender</strong><span>Wer hat die Seite gemacht? Gibt es ein Impressum? Ist das eine Schule, Behörde, bekanntes Medienhaus?</span></div></li>
+      <li><span class="step-num">2</span><div><strong>Belege</strong><span>Werden Aussagen mit Quellen belegt? Oder steht da nur „Experten sagen..."?</span></div></li>
+      <li><span class="step-num">3</span><div><strong>Ton</strong><span>Klingt der Text sachlich oder will er dich aufregen / überzeugen?</span></div></li>
+      <li><span class="step-num">4</span><div><strong>Vergleiche</strong><span>Sagen andere seriöse Seiten das Gleiche? Wenn nicht – aufgepasst!</span></div></li>
+    </ul>
+  </div>
+
+  <div class="card red">
+    <div class="card-icon">🚨</div>
+    <div class="card-label">Achtung!</div>
+    <h2>Warnzeichen – dieser Seite lieber nicht vertrauen</h2>
+    <div class="warn-grid">
+      <div class="warn-item"><span class="wi">📢</span> Viel Werbung</div>
+      <div class="warn-item"><span class="wi">❌</span> Kein Impressum</div>
+      <div class="warn-item"><span class="wi">😡</span> Aufwiegelnder Ton</div>
+      <div class="warn-item"><span class="wi">🔤</span> Viele Rechtschreibfehler</div>
+      <div class="warn-item"><span class="wi">📅</span> Kein Datum</div>
+      <div class="warn-item"><span class="wi">🔗</span> Links führen nirgendwo hin</div>
+      <div class="warn-item"><span class="wi">👤</span> Kein Autor genannt</div>
+      <div class="warn-item"><span class="wi">🤯</span> Zu reißerische Überschriften</div>
+    </div>
+  </div>
+
+  <div class="card coral">
+    <div class="card-icon">🏛️</div>
+    <div class="card-label">Vertrauenswürdig</div>
+    <h2>Diese Quellen sind meist zuverlässig</h2>
+    <ul class="checklist">
+      <li><span class="check-box"></span><div><strong>Große Medienportale</strong><span>z. B. NDR, ARD, Spiegel, Zeit, Spektrum der Wissenschaft</span></div></li>
+      <li><span class="check-box"></span><div><strong>Behörden &amp; Institutionen</strong><span>z. B. Bundeszentrale für politische Bildung, Umweltbundesamt</span></div></li>
+      <li><span class="check-box"></span><div><strong>Bildungsportale</strong><span>z. B. Planet Schule, Schulkino, klexikon.de (kindgerecht!)</span></div></li>
+      <li><span class="check-box"></span><div><strong>NGOs &amp; Fachverbände</strong><span>z. B. WWF, Greenpeace – aber trotzdem kritisch lesen!</span></div></li>
+      <li><span class="check-box"></span><div><strong>Wikipedia als Einstieg</strong><span>Gut für einen ersten Überblick – aber immer die Quellen unten auf der Seite prüfen!</span></div></li>
+    </ul>
+  </div>
+
+  <div class="card purple wide">
+    <div class="card-icon">🤖</div>
+    <div class="card-label">KI verstehen</div>
+    <h2>Was KI kann – und was nicht</h2>
+    <table class="compare">
+      <thead>
+        <tr>
+          <th style="width:18%"></th>
+          <th class="th-classic">Klassische Suche (Google, Bing…)</th>
+          <th class="th-ki">KI-Suche (Perplexity, ChatGPT…)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Wie?</td><td>Zeigt dir echte Webseiten und Links</td><td>Fasst Informationen zusammen, gibt Text zurück</td></tr>
+        <tr><td>Quellen?</td><td>Du siehst direkt, woher die Info kommt</td><td>Manchmal mit Quellen – immer selbst nachprüfen!</td></tr>
+        <tr><td>Fehler?</td><td>Seiten können falsch sein</td><td>KI kann "halluzinieren" – d.h. Dinge erfinden, die falsch klingen, aber überzeugend klingen</td></tr>
+        <tr><td>Aktualität?</td><td>Meistens aktuell</td><td>KI hat oft keinen Zugang zu ganz aktuellen Infos</td></tr>
+        <tr><td>Fazit</td><td>Gut für gezielte Quellensuche</td><td>Gut als Einstieg – aber nie blind vertrauen!</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card purple">
+    <div class="card-icon">💬</div>
+    <div class="card-label">KI richtig nutzen</div>
+    <h2>Gute Prompts schreiben</h2>
+    <div class="prompt-box bad">
+      <div class="label">Schlechter Prompt</div>
+      „Klimawandel"
+    </div>
+    <div class="vs-divider">BESSER SO:</div>
+    <div class="prompt-box">
+      <div class="label">Guter Prompt</div>
+      „Erkläre mir als Schüler in der 7. Klasse, was die wichtigsten Ursachen des Klimawandels sind. Gib mir auch Quellen an."
+    </div>
+    <ul class="steps" style="margin-top: 12px;">
+      <li><span class="step-num">✓</span><div><strong>Nenne deine Klassenstufe</strong><span>So antwortet die KI auf deinem Niveau.</span></div></li>
+      <li><span class="step-num">✓</span><div><strong>Stelle konkrete Einzelfragen</strong><span>Nicht alles auf einmal – Schritt für Schritt fragen.</span></div></li>
+      <li><span class="step-num">✓</span><div><strong>Frage nach Quellen</strong><span>Und prüfe sie dann selbst nach!</span></div></li>
+      <li><span class="step-num">✓</span><div><strong>Hinterfrage die Antwort</strong><span>Frag ruhig nach: „Bist du dir da sicher?" oder „Welche Gegenargumente gibt es?"</span></div></li>
+    </ul>
+  </div>
+
+  <div class="card amber">
+    <div class="card-icon">🔒</div>
+    <div class="card-label">Datenschutz &amp; Recht</div>
+    <h2>Das darfst du nicht vergessen</h2>
+    <ul class="steps">
+      <li><span class="step-num">!</span><div><strong>Keine persönlichen Daten eingeben</strong><span>Name, Adresse, Handynummer, Passwörter – niemals in eine KI tippen!</span></div></li>
+      <li><span class="step-num">!</span><div><strong>KI "lernt" aus deinen Eingaben</strong><span>Was du schreibst, kann genutzt werden – also pass auf, was du teilst.</span></div></li>
+      <li><span class="step-num">!</span><div><strong>Bilder haben Urheberrecht</strong><span>Einfach ein Bild aus dem Netz kopieren? Nur erlaubt, wenn die Lizenz das erlaubt (z. B. Creative Commons).</span></div></li>
+      <li><span class="step-num">!</span><div><strong>Quellenangabe ist Pflicht</strong><span>Egal ob Internet, Buch oder KI – immer angeben, woher deine Informationen stammen.</span></div></li>
+    </ul>
+  </div>
+
+  <div class="card gray">
+    <div class="card-icon">📋</div>
+    <div class="card-label">Am Ende nicht vergessen</div>
+    <h2>So machst du ein Quellenverzeichnis</h2>
+    <ul class="steps">
+      <li><span class="step-num">1</span><div><strong>Webseite</strong><span>Autor (falls bekannt), Titel des Artikels, Name der Seite, URL, Datum des Abrufs<br><em>Bsp: NDR. „Was ist der Klimawandel?" ndr.de. Abgerufen am 13.05.2026.</em></span></div></li>
+      <li><span class="step-num">2</span><div><strong>KI-Antwort</strong><span>Name der KI, Datum der Nutzung, deine Frage (Prompt)<br><em>Bsp: Perplexity.ai, 13.05.2026. Prompt: „Erkläre den Treibhauseffekt für Klasse 7."</em></span></div></li>
+      <li><span class="step-num">3</span><div><strong>Buch</strong><span>Autor, Titel, Erscheinungsjahr, Verlag, Seitenzahl</span></div></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="merksatz">
+  <div class="m-icon">🧠</div>
+  <p><span>Merke:</span> KI ist kein Lexikon! Sie gibt Antworten, die wahrscheinlich klingen – aber nicht unbedingt wahr sind. Prüfe immer nach. Wer recherchiert, denkt selbst!</p>
+</div>
+
+<footer>
+  <p>Vorläufige KI-Variante · Erstellt auf Basis von Lehrerreflexionen · Für den Einsatz in Klasse 5–10 · Kein Ersatz für eigenständiges Denken 🙂</p>
+</footer>
+
+</div><!-- end page-content -->
+</body>
+</html>
