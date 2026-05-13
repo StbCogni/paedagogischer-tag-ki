@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Einzelreflexion – Ergebnisse · Pädagogischer Tag TBS</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #f5f4f0;
+      color: #1a1a18;
+      padding: 0 0 3rem;
+      line-height: 1.6;
+    }
+
+    /* ─── BACK BAR ─────────────────────────── */
+    .back-bar {
+      background: white;
+      border-bottom: 1px solid #e0ddd5;
+      padding: 10px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #2d6a4f;
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ─── HEADER ───────────────────────────── */
+    .page-header {
+      background: linear-gradient(135deg, #1a4030 0%, #2d6a4f 60%, #3d8b6a 100%);
+      color: white;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .page-header h1 { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 700; margin-bottom: 6px; }
+    .page-header p { font-size: 0.88rem; color: rgba(255,255,255,0.7); }
+
+    /* ─── CONTENT ──────────────────────────── */
+    .content {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .lf {
+      margin-bottom: 2.5rem;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+
+    .lf-header { padding: 1.1rem 1.4rem; }
+    .lf-num {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      opacity: 0.75;
+    }
+    .lf-title { font-size: 1.05rem; font-weight: 600; }
+
+    .lf-body {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 10px;
+      padding: 12px;
+      background: #eeede8;
+    }
+
+    .cluster {
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px 14px;
+      border: 1px solid rgba(0,0,0,0.06);
+    }
+    .cluster-title {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border-radius: 99px;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .noch-nicht {
+      font-size: 0.8rem;
+      color: #777;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px dashed #ccc;
+      display: inline-block;
+    }
+    .full-col { grid-column: 1 / -1; }
+
+    /* Leitfrage 1 – Teal */
+    .lf1 .lf-header { background: #E1F5EE; color: #085041; }
+    .lf1 .lf-num    { color: #0F6E56; }
+    .lf1 .cluster-title { color: #0F6E56; }
+    .t1a { background: #9FE1CB; color: #085041; }
+    .t1b { background: #B5D4F4; color: #0C447C; }
+    .t1c { background: #FAC775; color: #633806; }
+    .t1d { background: #F4C0D1; color: #72243E; }
+
+    /* Leitfrage 2 – Blue */
+    .lf2 .lf-header { background: #E6F1FB; color: #042C53; }
+    .lf2 .lf-num    { color: #185FA5; }
+    .lf2 .cluster-title { color: #185FA5; }
+    .t2a { background: #B5D4F4; color: #0C447C; }
+    .t2b { background: #9FE1CB; color: #085041; }
+    .t2c { background: #FAC775; color: #633806; }
+    .t2d { background: #F4C0D1; color: #72243E; }
+    .t2e { background: #C0DD97; color: #27500A; }
+
+    /* Leitfrage 3 – Coral */
+    .lf3 .lf-header { background: #FAECE7; color: #4A1B0C; }
+    .lf3 .lf-num    { color: #993C1D; }
+    .lf3 .cluster-title { color: #993C1D; }
+    .t3a { background: #F5C4B3; color: #4A1B0C; }
+    .t3b { background: #B5D4F4; color: #0C447C; }
+    .t3c { background: #9FE1CB; color: #085041; }
+    .t3d { background: #FAC775; color: #633806; }
+    .t3e { background: #F4C0D1; color: #72243E; }
+    .t3f { background: #C0DD97; color: #27500A; }
+
+    footer {
+      max-width: 880px;
+      margin: 0 auto;
+      font-size: 0.78rem;
+      color: #aaa;
+      padding: 1rem 1rem 0;
+      border-top: 1px solid #ddd;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body { background: #1a1a18; color: #e8e6df; }
+      .lf-body { background: #2a2a27; }
+      .cluster { background: #222220; border-color: rgba(255,255,255,0.07); }
+      .lf1 .lf-header { background: #085041; color: #9FE1CB; }
+      .lf2 .lf-header { background: #0C447C; color: #B5D4F4; }
+      .lf3 .lf-header { background: #4A1B0C; color: #F5C4B3; }
+      .t1a { background: #0F6E56; color: #9FE1CB; }
+      .t1b { background: #0C447C; color: #B5D4F4; }
+      .t1c { background: #633806; color: #FAC775; }
+      .t1d { background: #72243E; color: #F4C0D1; }
+      .t2a { background: #0C447C; color: #B5D4F4; }
+      .t2b { background: #0F6E56; color: #9FE1CB; }
+      .t2c { background: #633806; color: #FAC775; }
+      .t2d { background: #72243E; color: #F4C0D1; }
+      .t2e { background: #27500A; color: #C0DD97; }
+      .t3a { background: #4A1B0C; color: #F5C4B3; }
+      .t3b { background: #0C447C; color: #B5D4F4; }
+      .t3c { background: #0F6E56; color: #9FE1CB; }
+      .t3d { background: #633806; color: #FAC775; }
+      .t3e { background: #72243E; color: #F4C0D1; }
+      .t3f { background: #27500A; color: #C0DD97; }
+      .noch-nicht { color: #aaa; border-color: #555; }
+      footer { color: #555; border-color: #333; }
+      .back-bar { background: #1e1e1c; border-color: #333; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a href="index.html" class="back-link">← Zurück zum Tagesablauf</a>
+</div>
+
+<div class="page-header">
+  <h1>KI im Schulalltag – Auswertung</h1>
+  <p>Ergebnisse der Moderationskarten · geclustert nach drei Leitfragen</p>
+</div>
+
+<div class="content">
+
+  <!-- Leitfrage 1 -->
+  <div class="lf lf1">
+    <div class="lf-header">
+      <p class="lf-num">Leitfrage 1</p>
+      <p class="lf-title">Wo habe ich KI im Schulalltag genutzt?</p>
+    </div>
+    <div class="lf-body">
+      <div class="cluster">
+        <p class="cluster-title">Unterricht &amp; Material</p>
+        <div class="tags">
+          <span class="tag t1a">Unterrichtsmaterialerstellung</span>
+          <span class="tag t1a">Arbeitsblatterstellung</span>
+          <span class="tag t1a">AB-Erstellung</span>
+          <span class="tag t1a">Erstellen Lernjobs</span>
+          <span class="tag t1a">LEB-Texte Feinschliff</span>
+          <span class="tag t1a">Material Hupli Woche</span>
+          <span class="tag t1a">Bild-Wort-Karten</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Planung &amp; Vorbereitung</p>
+        <div class="tags">
+          <span class="tag t1b">Prüfungsvorbereitung</span>
+          <span class="tag t1b">Ideen für Projektwoche</span>
+          <span class="tag t1b">Clubplanung</span>
+          <span class="tag t1b">Erstellung von Clubinhalten (BP/Operationen)</span>
+          <span class="tag t1b">Ideensammlung &amp; Recherche</span>
+          <span class="tag t1b">Ideen für den Unterricht</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Kommunikation &amp; Verwaltung</p>
+        <div class="tags">
+          <span class="tag t1c">Feedback für Schülertexte</span>
+          <span class="tag t1c">Aufgabenstellung</span>
+          <span class="tag t1c">Nachrichten beantworten</span>
+          <span class="tag t1c">Formulierungen für Mails</span>
+          <span class="tag t1c">Schnelle Beantwortung von Fragestellungen</span>
+          <span class="tag t1c">Bewertungsbögen</span>
+          <span class="tag t1c">Tabellen erstellen</span>
+          <span class="tag t1c">Hilfe LN-Pakete / allg. Fragen</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Kreativität &amp; Differenzierung</p>
+        <div class="tags">
+          <span class="tag t1d">Strukturierung v. Rechtschreibphänomenen</span>
+          <span class="tag t1d">Transferfragen zu Projekt</span>
+          <span class="tag t1d">Rätsel erstellen</span>
+          <span class="tag t1d">Kahoot</span>
+          <span class="tag t1d">Rezepte</span>
+          <span class="tag t1d">Zum Post erstellen</span>
+        </div>
+      </div>
+      <div class="cluster full-col">
+        <p class="cluster-title">Noch nicht genutzt</p>
+        <span class="noch-nicht">2 Personen haben KI bislang noch nicht im Schulalltag eingesetzt</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leitfrage 2 -->
+  <div class="lf lf2">
+    <div class="lf-header">
+      <p class="lf-num">Leitfrage 2</p>
+      <p class="lf-title">Wo bin ich zuletzt mit KI in Kontakt gekommen?</p>
+    </div>
+    <div class="lf-body">
+      <div class="cluster">
+        <p class="cluster-title">Schule &amp; Beruf</p>
+        <div class="tags">
+          <span class="tag t2a">Fortbildung</span>
+          <span class="tag t2a">Arbeit am Lernpfad &amp; Materialerstellung</span>
+          <span class="tag t2a">Sprache lernen / Vorbereitung LN</span>
+          <span class="tag t2a">Klare Nachrichten formulieren</span>
+          <span class="tag t2a">Vorbereitung gestern</span>
+          <span class="tag t2a">Listen für Schule &amp; Privatleben</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Alltag &amp; Freizeit</p>
+        <div class="tags">
+          <span class="tag t2b">Urlaubsplanung</span>
+          <span class="tag t2b">Restaurant-Suche</span>
+          <span class="tag t2b">Gartengestaltung</span>
+          <span class="tag t2b">Gartenplanung</span>
+          <span class="tag t2b">Privat / Recherche</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Kommunikation &amp; Text</p>
+        <div class="tags">
+          <span class="tag t2c">Formulierungsunterstützung Email</span>
+          <span class="tag t2c">Brief formulieren</span>
+          <span class="tag t2c">Nachrichten Zusammenfassung</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Suche &amp; Information</p>
+        <div class="tags">
+          <span class="tag t2d">Suchanfragen im Internet</span>
+          <span class="tag t2d">Suchportale</span>
+          <span class="tag t2d">Google</span>
+          <span class="tag t2d">Vergleich von 2 Lautsprechern</span>
+          <span class="tag t2d">Berechnung Wertpapiertransaktionssteuer</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Medien &amp; Kreativ</p>
+        <div class="tags">
+          <span class="tag t2e">Bilderstellung</span>
+          <span class="tag t2e">Bilder einstellen für ein Paket</span>
+          <span class="tag t2e">Abiplakat</span>
+          <span class="tag t2e">Godot 4.6 mit Opus</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leitfrage 3 -->
+  <div class="lf lf3">
+    <div class="lf-header">
+      <p class="lf-num">Leitfrage 3</p>
+      <p class="lf-title">Wo würde ich KI als hilfreich erleben?</p>
+    </div>
+    <div class="lf-body">
+      <div class="cluster">
+        <p class="cluster-title">Unterrichtsmaterial erstellen</p>
+        <div class="tags">
+          <span class="tag t3a">Arbeitsblätter erstellen</span>
+          <span class="tag t3a">Übungen erstellen</span>
+          <span class="tag t3a">Wort-Bildkarten (Sprachunterricht)</span>
+          <span class="tag t3a">Unterrichtsmaterialien</span>
+          <span class="tag t3a">Differenzierung Arbeitsmaterial</span>
+          <span class="tag t3a">Materialerstellung</span>
+          <span class="tag t3a">Bild-/Unterrichtsmaterial</span>
+          <span class="tag t3a">Erstellung von Materialien</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Feedback &amp; Korrektur</p>
+        <div class="tags">
+          <span class="tag t3b">Differenziertes Feedback für Schüler</span>
+          <span class="tag t3b">Korrektur eigener Texte</span>
+          <span class="tag t3b">Korrekturen</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Texte &amp; Kommunikation</p>
+        <div class="tags">
+          <span class="tag t3c">Beim Formulieren von Texten</span>
+          <span class="tag t3c">Für Anregungen &amp; Ideen</span>
+          <span class="tag t3c">Bei allen Fragen</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Planung &amp; Verwaltung</p>
+        <div class="tags">
+          <span class="tag t3d">Eingabe von Noten/% in LEB-Diagramm</span>
+          <span class="tag t3d">Erstellung des Projekts (Hype-Woche)</span>
+          <span class="tag t3d">Plakaterstelsung &amp; AB</span>
+          <span class="tag t3d">Unterrichtsvorbereitung</span>
+          <span class="tag t3d">AB's erstellen</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Digital &amp; Kreativ</p>
+        <div class="tags">
+          <span class="tag t3e">Beim Erstellen eines Bots</span>
+          <span class="tag t3e">Bilder social posten</span>
+          <span class="tag t3e">Ideensammlungen</span>
+          <span class="tag t3e">Beratungsideen</span>
+        </div>
+      </div>
+      <div class="cluster">
+        <p class="cluster-title">Alltag &amp; Leben allgemein</p>
+        <div class="tags">
+          <span class="tag t3f">In allen Lebensbereichen</span>
+          <span class="tag t3f">Rechner im gesamten Alltag</span>
+          <span class="tag t3f">Briefe &amp; Rechnungen</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>Erstellt aus Workshop-Fotos · Karteninhalte per OCR erfasst und thematisch geclustert</p>
+</footer>
+
+</body>
+</html>
