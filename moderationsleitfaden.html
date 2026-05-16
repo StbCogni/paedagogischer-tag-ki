@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moderationsleitfaden · Pädagogischer Tag KI · TBS</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text: #1a1a18;
+      --muted: #555552;
+      --border: #d0cec8;
+      --bg: #f7f6f2;
+      --accent: #1D9E75;
+      --accent-light: #E1F5EE;
+      --warn: #b45309;
+      --warn-light: #FAEEDA;
+      --tip: #185FA5;
+      --tip-light: #E6F1FB;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 24px 20px 48px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* ── COVER ── */
+    .cover {
+      text-align: center;
+      padding: 40px 24px 32px;
+      border-bottom: 2px solid var(--text);
+      margin-bottom: 32px;
+    }
+
+    .cover .school { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .cover h1 { font-size: 2rem; font-weight: 800; line-height: 1.15; margin-bottom: 8px; }
+    .cover h1 span { border-bottom: 3px solid var(--accent); }
+    .cover .meta { font-size: 0.82rem; color: var(--muted); margin-top: 10px; }
+
+    /* ── OVERVIEW TABLE ── */
+    .overview {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 40px;
+      font-size: 0.82rem;
+    }
+
+    .overview thead th {
+      background: var(--text);
+      color: white;
+      padding: 7px 12px;
+      text-align: left;
+      font-size: 0.7rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .overview tbody tr { border-bottom: 1px solid var(--border); }
+    .overview tbody tr:nth-child(even) { background: #f0ede6; }
+    .overview tbody td { padding: 6px 12px; vertical-align: top; }
+    .overview .time-col { white-space: nowrap; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .overview .dur-col { color: var(--muted); white-space: nowrap; }
+    .overview .type-pause { background: #f5f0e8 !important; color: var(--muted); font-style: italic; }
+
+    /* ── SECTION ── */
+    .session {
+      margin-bottom: 32px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .session-header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      background: var(--text);
+      color: white;
+    }
+
+    .session-header .s-time {
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+
+    .session-header .s-title {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .session-header .s-dur {
+      font-size: 0.72rem;
+      opacity: 0.65;
+      white-space: nowrap;
+    }
+
+    .session-body {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .session-body.full { grid-template-columns: 1fr; }
+
+    .block {
+      padding: 10px 12px;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    .block-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .block.ziel    .block-label { color: var(--accent); }
+    .block.mod     .block-label { color: var(--text); }
+    .block.saetze  .block-label { color: var(--tip); }
+    .block.tipps   .block-label { color: var(--warn); }
+    .block.material .block-label { color: #6b21a8; }
+
+    .block.ziel    { border-left: 3px solid var(--accent); }
+    .block.mod     { border-left: 3px solid var(--text); }
+    .block.saetze  { border-left: 3px solid var(--tip); background: var(--tip-light); }
+    .block.tipps   { border-left: 3px solid var(--warn); background: var(--warn-light); }
+    .block.material { border-left: 3px solid #6b21a8; background: #f5f3ff; }
+
+    .block ul { padding-left: 14px; }
+    .block ul li { margin-bottom: 4px; }
+    .block p { margin-bottom: 5px; }
+    .block p:last-child { margin-bottom: 0; }
+
+    em.phrase {
+      display: block;
+      font-style: italic;
+      color: var(--tip);
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    em.phrase::before { content: '„'; }
+    em.phrase::after  { content: '"'; }
+
+    .pause-block {
+      margin-bottom: 16px;
+      padding: 8px 16px;
+      background: #f0ede6;
+      border-left: 4px solid var(--border);
+      border-radius: 0 4px 4px 0;
+      color: var(--muted);
+      font-style: italic;
+      font-size: 0.85rem;
+    }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: white; padding: 0; font-size: 11.5px; }
+      .cover { padding: 24px 0 20px; }
+      .no-print { display: none !important; }
+      .session { page-break-inside: avoid; }
+      .page-break { page-break-before: always; }
+      .overview { margin-bottom: 24px; }
+    }
+
+    /* ── SCREEN ONLY ── */
+    .back-bar {
+      margin-bottom: 24px;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .print-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--text);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    .print-btn:hover { background: #333; }
+
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.72rem;
+      color: #aaa;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div class="back-bar no-print">
+  <a href="index.html" class="back-link">← Zurück zum Tagesablauf</a>
+  <button class="print-btn" onclick="window.print()">🖨 Drucken / Als PDF speichern</button>
+</div>
+
+<!-- COVER -->
+<div class="cover">
+  <p class="school">Turmbergschule Weingarten (TBS) · Pädagogischer Tag · 13. Mai 2026</p>
+  <h1>Moderations<span>leitfaden</span></h1>
+  <p class="meta">KI in der Schule · 08:00 – 16:30 Uhr · Vertraulich — nur für Moderation</p>
+</div>
+
+<!-- ÜBERSICHT -->
+<h2 style="font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;">Tagesübersicht</h2>
+<table class="overview">
+  <thead>
+    <tr>
+      <th>Zeit</th>
+      <th>Dauer</th>
+      <th>Programmpunkt</th>
+      <th>Format</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td class="time-col">08:00</td><td class="dur-col">15 Min</td><td>Ankommen &amp; Mentimeter-Umfrage</td><td>Plenum</td></tr>
+    <tr><td class="time-col">08:15</td><td class="dur-col">15 Min</td><td>Einzelreflexion &amp; 4er-Gruppen</td><td>Einzel + Gruppe</td></tr>
+    <tr><td class="time-col">08:30</td><td class="dur-col">15 Min</td><td>Persönlicher Impuls</td><td>Plenum</td></tr>
+    <tr><td class="time-col">08:45</td><td class="dur-col">90 Min</td><td>Copilot-Session: Ausprobieren</td><td>Dreiergruppen</td></tr>
+    <tr class="type-pause"><td class="time-col">10:15</td><td class="dur-col">15 Min</td><td>Kaffeepause</td><td>–</td></tr>
+    <tr><td class="time-col">10:30</td><td class="dur-col">60 Min</td><td>Copilot-Session: Ergebnisse &amp; Austausch</td><td>Plenum</td></tr>
+    <tr><td class="time-col">11:30</td><td class="dur-col">60 Min</td><td>Datenschutz (Schulamt)</td><td>Plenum</td></tr>
+    <tr class="type-pause"><td class="time-col">12:30</td><td class="dur-col">45 Min</td><td>Mittagspause</td><td>–</td></tr>
+    <tr><td class="time-col">13:15</td><td class="dur-col">15 Min</td><td>Aktivierung &amp; Wie funktioniert ein LLM?</td><td>Plenum</td></tr>
+    <tr><td class="time-col">13:30</td><td class="dur-col">60 Min</td><td>Perplexity-Session &amp; Präsentationen</td><td>2er Teams + Plenum</td></tr>
+    <tr><td class="time-col">14:30</td><td class="dur-col">45 Min</td><td>Metaebene &amp; Impulsfragen</td><td>Plenum</td></tr>
+    <tr class="type-pause"><td class="time-col">15:15</td><td class="dur-col">15 Min</td><td>Pause</td><td>–</td></tr>
+    <tr><td class="time-col">15:30</td><td class="dur-col">20 Min</td><td>1×1 der KI-gestützten Recherche</td><td>Plenum</td></tr>
+    <tr><td class="time-col">15:50</td><td class="dur-col">40 Min</td><td>Abschluss &amp; Commitment-Karten</td><td>Plenum</td></tr>
+  </tbody>
+</table>
+
+<!-- ──────────────────────────────── SESSION 1 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">08:00 – 08:15</span>
+    <span class="s-title">Ankommen &amp; Mentimeter-Umfrage</span>
+    <span class="s-dur">15 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Stimmung &amp; Vorerfahrung sichtbar machen. Alle ankommen lassen, ohne Druck. Ergebnisse als Gesprächsgrundlage für den Tag nutzen.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Mentimeter-Umfrage vorbereitet &amp; geöffnet</li>
+        <li>QR-Code auf Beamer oder Tisch</li>
+        <li>WLAN-Zugangsdaten bereithalten</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Teilnehmende kommen rein — Musik läuft, QR-Code sichtbar</li>
+        <li>Kurze Begrüßung, keine lange Einleitung</li>
+        <li>Mentimeter öffnen lassen, Ergebnisse live anzeigen — ohne Kommentar</li>
+        <li>Nach 5–7 Min: Ergebnisse kurz spiegeln — kein Werturteil</li>
+      </ul>
+    </div>
+    <div class="block saetze" style="grid-column: 1 / -1;">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Schön, dass ihr alle da seid. Bevor wir starten — scannt den QR-Code und beantwortet kurz 3 Fragen. Anonym, kein richtig oder falsch.</em>
+      <em class="phrase">Schaut mal — hier sehen wir gerade uns selbst. Das ist unser Ausgangspunkt für heute.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 2 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">08:15 – 08:30</span>
+    <span class="s-title">Einzelreflexion &amp; 4er-Gruppen</span>
+    <span class="s-dur">15 Min · Einzel + Gruppe</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Eigene Erfahrungen aktivieren bevor externe Inputs kommen. Austausch schafft Vertrauen im Raum.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Moderationskarten / Zettel auf den Tischen</li>
+        <li>Stifte</li>
+        <li>Fragen auf Beamer oder Flipchart sichtbar</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li><strong>5 Min Einzel:</strong> Drei Fragen auf Karte beantworten (still, für sich)</li>
+        <li><strong>10 Min Gruppe:</strong> Austausch in 4er-Gruppen — was teilt ihr gerne?</li>
+        <li>Karten einsammeln oder auf ein Board kleben — werden später geclustert</li>
+        <li>Keine Auswertung jetzt — nur ankündigen, dass die Ergebnisse am Ende sichtbar werden</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Nehmt euch 5 Minuten für euch. Drei Fragen, kein Aufsatz — Stichworte reichen.</em>
+      <em class="phrase">Tauscht euch jetzt in eurer Gruppe aus. Was habt ihr gemeinsam? Was überrascht euch?</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps &amp; mögliche Probleme</div>
+      <ul>
+        <li>Wenn jemand „noch nie" KI genutzt hat: explizit wertschätzen — das ist wichtige Perspektive</li>
+        <li>Gruppen nicht aufzwingen — wer allein sitzen möchte, darf</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 3 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">08:30 – 08:45</span>
+    <span class="s-title">Persönlicher Impuls</span>
+    <span class="s-dur">15 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Persönliche Brücke bauen: Warum KI relevant ist — nicht abstrakt, sondern aus dem eigenen Alltag heraus. Staunen wecken, dann die entscheidende Frage stellen.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Beamer / Bildschirm für Live-Demo</li>
+        <li>Impuls-Präsentation geöffnet: <strong>impuls-session.html</strong></li>
+        <li>Browser mit KI-Tool bereit</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Persönliche Geschichte: Wie KI den eigenen Arbeitsalltag verändert hat</li>
+        <li><strong>Live-Moment:</strong> Etwas in Echtzeit mit KI bauen — z. B. die Tages-Webseite zeigen, ein Referat generieren</li>
+        <li>Staunen zulassen — kurze Stille ist okay</li>
+        <li>Dann die Frage: <em>„Was machen wir mit Schülern, die das jetzt auch können?"</em></li>
+        <li>Keine Antwort geben — die Frage stehen lassen, Überleitung zur Copilot-Session</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Ich zeige euch jetzt etwas — das hat mich damals auch überrascht.</em>
+      <em class="phrase">Diese Frage begleitet uns heute. Ich werde sie nicht beantworten. Das macht ihr.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps &amp; mögliche Probleme</div>
+      <ul>
+        <li>15 Min sind knapp — Live-Demo auf max. 3 Min begrenzen</li>
+        <li>Technische Probleme: Offline-Screenshot als Backup bereit haben</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 4 ── -->
+<div class="session page-break">
+  <div class="session-header">
+    <span class="s-time">08:45 – 10:15</span>
+    <span class="s-title">Copilot-Session: Ausprobieren</span>
+    <span class="s-dur">90 Min · Dreiergruppen</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Erste echte Hands-on-Erfahrung. Keine Tutorials, kein Frontalunterricht — eigene Aufgaben, eigenes Tempo. Frustration und Überraschung sind beide willkommen.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Aufgabenkarten gedruckt oder auf Screen: <strong>copilot-session.html</strong></li>
+        <li>M365 Copilot für alle freigeschaltet</li>
+        <li>WLAN stabil</li>
+        <li>Stifte &amp; Notizzettel</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Gruppen von 3 Personen bilden — möglichst gemischte Rollen</li>
+        <li>Jede Gruppe wählt eine Aufgabenkarte (Fachlehrer, Lerncoach, Schulentwicklung, Freies Szenario)</li>
+        <li>Hinweis: <strong>Keine personenbezogenen Daten eingeben</strong> — klar und ohne Druck ansprechen</li>
+        <li>Moderation zirkuliert — Fragen beantworten, aber nicht vorwegnehmen</li>
+        <li>Ca. bei 60 Min: kurz ankündigen, dass in 30 Min Ergebnisse geteilt werden</li>
+        <li>Gruppen bitten, die „größte Überraschung" zu notieren</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Kein richtig oder falsch. Ausprobieren ist das Ziel — nicht ein perfektes Ergebnis.</em>
+      <em class="phrase">Wenn die KI etwas Seltsames macht: gut! Das ist genauso wertvoll wie wenn sie es richtig macht.</em>
+      <em class="phrase">Keine personenbezogenen Daten — also keine echten Schüler- oder Elternnamen eingeben.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps &amp; mögliche Probleme</div>
+      <ul>
+        <li>Gruppe kommt nicht weiter: Fragen stellen statt Lösung zeigen — „Was habt ihr schon versucht?"</li>
+        <li>Gruppe ist schon fertig: Zweite Aufgabenkarte anbieten oder eigenes Szenario entwickeln</li>
+        <li>Copilot liefert schlechte Ergebnisse: Thematisieren — schlechte Ergebnisse sind Unterrichtsmaterial</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="pause-block">⏸ Kaffeepause · 10:15 – 10:30 Uhr · 15 Min</div>
+
+<!-- ──────────────────────────────── SESSION 5 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">10:30 – 11:30</span>
+    <span class="s-title">Copilot-Session: Ergebnisse &amp; Austausch</span>
+    <span class="s-dur">60 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Erfahrungen sichtbar machen und gemeinsam verarbeiten. Unterschiede zwischen Gruppen nutzen — nicht harmonisieren.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Flipchart oder Whiteboard für Sammlung</li>
+        <li>Edumaps-Board: <strong>edumaps.de → Board</strong></li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Jede Gruppe: 2 Min — besten Fund + größte Überraschung vorstellen</li>
+        <li>Moderation sammelt Stichworte auf Flipchart / Board</li>
+        <li>Nach allen Gruppen: Was fällt auf? Was hätten wir nicht erwartet?</li>
+        <li>Vertiefungsfrage: Wo war die KI besser als erwartet — und wo schlechter?</li>
+        <li>Ergebnisse auf Edumaps-Board sichern</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Was war eure größte Überraschung — positiv oder negativ?</em>
+      <em class="phrase">Wir sehen hier sehr unterschiedliche Erfahrungen. Das ist kein Problem — das ist der Punkt.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps &amp; mögliche Probleme</div>
+      <ul>
+        <li>Gruppe dauert zu lang: nach 2 Min sanft unterbrechen — „Wir kommen im Austausch nochmal drauf"</li>
+        <li>Negative Erfahrungen dominieren: explizit nachfragen ob jemand positiv überrascht wurde</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 6 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">11:30 – 12:30</span>
+    <span class="s-title">Datenschutz (Staatliches Schulamt)</span>
+    <span class="s-dur">60 Min · Plenum</span>
+  </div>
+  <div class="session-body full">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Rechtlichen Rahmen klären — praxisnah, nicht als Frontalvortrag. Fragen aus dem Vormittag aufnehmen und einbetten.</p>
+    </div>
+    <div class="block mod">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Übergabe an Referentin / Referenten vom Schulamt mit kurzer persönlicher Einleitung</li>
+        <li>Vorab: Fragen aus dem Vormittag kurz benennen — „das hat die Gruppe heute morgen beschäftigt"</li>
+        <li>Format: dialogisch, Fragen jederzeit willkommen</li>
+        <li>10 Min vor Ende: offene Fragerunde</li>
+        <li>Abschluss: ein konkreter Take-away auf Flipchart</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Überleitung</div>
+      <em class="phrase">Aus dem Vormittag sind Fragen entstanden, die uns hier heute betreffen. Ich übergebe an [Name] vom Staatlichen Schulamt.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps</div>
+      <ul>
+        <li>Darauf achten, dass keine Einzelpersonen bloßgestellt werden</li>
+        <li>Bei Zeitproblemen: lieber kürzen als Mittagspause verkürzen</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="pause-block">🍽 Mittagspause · 12:30 – 13:15 Uhr · 45 Min</div>
+
+<!-- ──────────────────────────────── SESSION 7 ── -->
+<div class="session page-break">
+  <div class="session-header">
+    <span class="s-time">13:15 – 13:30</span>
+    <span class="s-title">Aktivierung &amp; Wie funktioniert ein LLM?</span>
+    <span class="s-dur">15 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Energie nach der Pause zurückbringen. Kurzes konzeptionelles Fundament legen — warum KI so antwortet wie sie antwortet.</p>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Kurze körperliche Aktivierung: z. B. alle stehen auf, kurze Frage im Raum</li>
+        <li>Kompakte Erklärung LLM: Wahrscheinlichkeit, kein Wissen, kein Verständnis — max. 5 Min</li>
+        <li>Eine Frage zur Überprüfung: „Was bedeutet das für die Verlässlichkeit von KI-Antworten?"</li>
+        <li>Direkte Überleitung zur Perplexity-Session</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">KI weiß nichts. Sie schätzt, was als nächstes kommen könnte — Wort für Wort. Das erklärt vieles.</em>
+      <em class="phrase">Genau deshalb machen wir jetzt das, was wir gleich machen.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps</div>
+      <ul>
+        <li>Nicht zu technisch — eine Analogie reicht: Autocomplete auf Steroiden</li>
+        <li>Bei Verständnisfragen: „Gute Frage — das nehmen wir gleich mit in die Session"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 8 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">13:30 – 14:30</span>
+    <span class="s-title">Perplexity-Session &amp; Präsentationen</span>
+    <span class="s-dur">60 Min · 2er Teams + Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Schülerrolle einnehmen. KI-gestützte Recherche erleben und sofort kritisch hinterfragen — Quellen prüfen, Überraschungen entdecken, präsentieren.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Perplexity.ai geöffnet</li>
+        <li>Themenliste: <strong>perplexity-session.html</strong></li>
+        <li>Edumaps-Board für Ergebnisse</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li><strong>5 Min:</strong> Thema wählen aus Liste, erste Fragen formulieren</li>
+        <li><strong>15 Min:</strong> Recherche vertiefen, Folgefragen stellen, Quellen aktiv anklicken</li>
+        <li><strong>10 Min:</strong> Gliederung + humorvollen Einstieg schreiben (2–3 Sätze)</li>
+        <li><strong>30 Min:</strong> Kurzpräsentationen — jedes Team: Einstieg + größte Überraschung</li>
+        <li>Nach jeder Präsentation: kurze Diskussion — was war überraschend?</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Ihr seid jetzt Schüler. Sucht euer Thema, stellt Fragen — und klickt mindestens eine Quelle an.</em>
+      <em class="phrase">Was hat euch überrascht? Positiv oder negativ — beides zählt.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps &amp; mögliche Probleme</div>
+      <ul>
+        <li>Präsentationen zu lang: max. 3 Min pro Team — vorher ankündigen</li>
+        <li>Quellen werden nicht geprüft: aktiv nachfragen — „habt ihr die Quelle angeklickt?"</li>
+        <li>Halluzination entdeckt: sofort im Plenum thematisieren — Goldmoment!</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 9 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">14:30 – 15:15</span>
+    <span class="s-title">Metaebene &amp; Impulsfragen</span>
+    <span class="s-dur">45 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Vom Erleben zur Reflexion. Was bedeutet das alles für Schülerinnen und Schüler? Welche Kompetenzen brauchen sie wirklich?</p>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Einstieg mit einer Impulsfrage — Stille zulassen, nicht sofort auflösen</li>
+        <li>Fishbowl oder offene Runde — 3–4 Personen reden, andere hören zu, dann wechseln</li>
+        <li>Stichworte auf Flipchart oder Board sammeln — diese fließen ins 1×1 ein</li>
+        <li>Ca. bei 40 Min: „Was nehmt ihr als wichtigste Erkenntnis mit?"</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Impulsfragen (Auswahl)</div>
+      <em class="phrase">Woran erkenne ich als Schüler, ob ich einer KI-Antwort gerade zu sehr vertraue?</em>
+      <em class="phrase">Was unterscheidet gute Recherche mit KI von schlechter Recherche ohne KI?</em>
+      <em class="phrase">Welche Recherchekompetenzen brauchen Schüler mehr, seitdem KI die erste Antwort liefert?</em>
+      <em class="phrase">Wie kann ich Schülern beibringen, Quellen zu prüfen — wenn die KI sie schon zusammengefasst hat?</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps</div>
+      <ul>
+        <li>Nicht in Lösungen abdriften — bei der Reflexion bleiben</li>
+        <li>Wenn Diskussion ins Stocken kommt: konkrete Situation aus dem Vormittag aufgreifen</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="pause-block">⏸ Pause · 15:15 – 15:30 Uhr · 15 Min</div>
+
+<!-- ──────────────────────────────── SESSION 10 ── -->
+<div class="session page-break">
+  <div class="session-header">
+    <span class="s-time">15:30 – 15:50</span>
+    <span class="s-title">1×1 der KI-gestützten Recherche</span>
+    <span class="s-dur">20 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Gemeinsam ein konkretes Dokument finalisieren, das alle mitnehmen. Von Reflexion zum handfesten Ergebnis.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>KI-Rohfassung: <strong>recherche-1x1.html</strong> auf Beamer</li>
+        <li>Stichworte aus der Metaebene als Ergänzungsvorlage</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Rohfassung auf Beamer zeigen — als Gesprächsgrundlage, nicht als Ergebnis</li>
+        <li>Im Plenum gemeinsam: Was fehlt? Was ist falsch? Was würdet ihr ergänzen?</li>
+        <li>Korrekturen live einarbeiten oder notieren</li>
+        <li>Abschluss: „Dieses Dokument gehört euch — ihr habt es heute erarbeitet."</li>
+        <li>Link / QR-Code zur finalen Version bereitstellen</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Die KI hat einen ersten Entwurf gemacht — jetzt seid ihr die Experten. Was stimmt nicht?</em>
+      <em class="phrase">Das hier ist euer Dokument. Ihr nehmt es mit — und könnt es morgen direkt nutzen.</em>
+    </div>
+  </div>
+</div>
+
+<!-- ──────────────────────────────── SESSION 11 ── -->
+<div class="session">
+  <div class="session-header">
+    <span class="s-time">15:50 – 16:30</span>
+    <span class="s-title">Abschluss &amp; Commitment-Karten</span>
+    <span class="s-dur">40 Min · Plenum</span>
+  </div>
+  <div class="session-body">
+    <div class="block ziel">
+      <div class="block-label">Ziel</div>
+      <p>Persönliches Takeaway verankern. Kein abstraktes Fazit — eine konkrete, selbst gewählte Handlung für morgen.</p>
+    </div>
+    <div class="block material">
+      <div class="block-label">Material</div>
+      <ul>
+        <li>Karteikarten + Stifte auf den Tischen</li>
+        <li>Optional: Umschlag zum Mitnehmen</li>
+      </ul>
+    </div>
+    <div class="block mod" style="grid-column: 1 / -1;">
+      <div class="block-label">Moderationsablauf</div>
+      <ul>
+        <li>Frage auf Beamer: <em>„Was möchte ich morgen ausprobieren — und was werde ich bewusst nicht der KI überlassen?"</em></li>
+        <li>5 Min: still schreiben, für sich</li>
+        <li>Freiwillig teilen — keine Pflicht</li>
+        <li>Karte mitnehmen — persönliches Takeaway, kein Input fürs Kollegium</li>
+        <li>Abschluss: kurzes persönliches Wort der Moderation — was hat dich heute überrascht?</li>
+        <li>Dank &amp; Verabschiedung</li>
+      </ul>
+    </div>
+    <div class="block saetze">
+      <div class="block-label">Formulierungsvorschläge</div>
+      <em class="phrase">Schreibt für euch — nicht fürs Kollegium, nicht für mich. Was wollt ihr morgen konkret tun?</em>
+      <em class="phrase">Wer möchte, darf teilen. Wer nicht, darf die Karte einstecken und nach Hause nehmen.</em>
+      <em class="phrase">Danke für diesen Tag. Ich habe heute mehr gelernt als ihr denkt.</em>
+    </div>
+    <div class="block tipps">
+      <div class="block-label">Tipps</div>
+      <ul>
+        <li>Kein „großes Fazit" erzwingen — der Tag spricht für sich</li>
+        <li>Wenn Zeit bleibt: offene Fragen sammeln für ein Folgeangebot</li>
+        <li>Energie am Ende: authentisch, keine performte Begeisterung</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Moderationsleitfaden · Pädagogischer Tag KI · TBS Weingarten · 13. Mai 2026 · Vertraulich
+</footer>
+
+</body>
+</html>
