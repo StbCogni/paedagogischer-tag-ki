@@ -190,8 +190,117 @@
     <div class="timeline-item c-teal"><div class="timeline-card">
       <div class="card-meta"><span class="card-time">13:15 – 13:30</span><span class="card-duration">15 Min</span><span class="tag tag-plenum">Plenum</span></div>
       <div class="card-title">Aktivierungsübung &amp; Wie funktioniert ein LLM?</div>
-      <div class="card-body">Kurze Aktivierung nach der Pause, dann kompakte Erklärung wie Large Language Models funktionieren.</div>
+      <div class="card-body">Kurze Aktivierung nach der Pause, dann kompakte Erklärung wie Large Language Models funktionieren.
+        <details style="margin-top:14px;" class="llm-demo-wrap">
+          <summary style="cursor:pointer;font-size:0.82rem;font-weight:700;color:#0a7f8a;padding:8px 12px;background:#e8f6f7;border-radius:7px;list-style:none;display:flex;align-items:center;gap:7px;">
+            <span class="llm-arrow">▶</span> Interaktive LLM-Erklärung aufklappen
+          </summary>
+          <div class="llm-demo" style="margin-top:10px;">
+            <!-- TAB NAV -->
+            <div class="llm-tabs">
+              <button class="llm-tab active" onclick="llmTab(0)">Schritt 1: Kontext</button>
+              <button class="llm-tab" onclick="llmTab(1)">Schritt 2: Wahl</button>
+              <button class="llm-tab" onclick="llmTab(2)">Schritt 3: Weiter</button>
+              <button class="llm-tab secret" onclick="llmTab(3)">💡 Das Geheimnis</button>
+            </div>
+
+            <!-- STEP 0 -->
+            <div class="llm-step" id="llms0">
+              <p class="llm-label">DER KONTEXT — WAS DAS MODELL „SIEHT"</p>
+              <div class="llm-tokens">
+                <span class="tok">Die</span><span class="tok">Katze</span><span class="tok">sitzt</span><span class="tok">auf</span><span class="tok">der</span><span class="tok blank">___</span>
+              </div>
+              <div class="llm-info">
+                <p><strong>Das Modell liest alle bisherigen Wörter.</strong></p>
+                <p>Genau wie Google Autofill — aber statt nur das letzte Wort zu sehen, versteht ein LLM den <strong>gesamten Kontext</strong> auf einmal.</p>
+              </div>
+              <button class="llm-btn" onclick="llmTab(1)">Nächstes Wort vorhersagen →</button>
+            </div>
+
+            <!-- STEP 1 -->
+            <div class="llm-step" id="llms1" style="display:none;">
+              <p class="llm-label">DIE WAHRSCHEINLICHKEITEN — KEINE GEWISSHEIT</p>
+              <div class="llm-tokens">
+                <span class="tok">Die</span><span class="tok">Katze</span><span class="tok">sitzt</span><span class="tok">auf</span><span class="tok">der</span><span class="tok blank">?</span>
+              </div>
+              <div class="llm-probs">
+                <div class="prob-row"><span class="prob-word">Matte</span><div class="prob-bar-bg"><div class="prob-bar" style="width:42%">42 %</div></div></div>
+                <div class="prob-row"><span class="prob-word">Fensterbank</span><div class="prob-bar-bg"><div class="prob-bar" style="width:28%">28 %</div></div></div>
+                <div class="prob-row"><span class="prob-word">Couch</span><div class="prob-bar-bg"><div class="prob-bar" style="width:18%">18 %</div></div></div>
+                <div class="prob-row"><span class="prob-word">Treppe</span><div class="prob-bar-bg"><div class="prob-bar" style="width:8%">8 %</div></div></div>
+                <div class="prob-row"><span class="prob-word">…</span><div class="prob-bar-bg"><div class="prob-bar" style="width:4%">4 %</div></div></div>
+              </div>
+              <div class="llm-info">
+                <p>Das Modell wählt <strong>nicht immer die wahrscheinlichste</strong> Option — sonst wäre jeder Text gleich. Eine Prise Zufall macht die Antwort natürlicher.</p>
+              </div>
+              <button class="llm-btn" onclick="llmTab(2)">Wort wählen &amp; weitermachen →</button>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="llm-step" id="llms2" style="display:none;">
+              <p class="llm-label">DER PROZESS WIEDERHOLT SICH — WORT FÜR WORT</p>
+              <div class="llm-tokens" id="llm-growing">
+                <span class="tok">Die</span><span class="tok">Katze</span><span class="tok">sitzt</span><span class="tok">auf</span><span class="tok">der</span><span class="tok chosen">Matte</span><span class="tok blank" id="llm-next">___</span>
+              </div>
+              <div class="llm-info">
+                <p>Jetzt beginnt alles von vorn: Das Modell liest <em>„Die Katze sitzt auf der Matte"</em> und sagt das nächste Wort vorher.</p>
+                <p style="margin-top:6px;">So entsteht ein ganzer Text — <strong>ein Wort nach dem anderen</strong>, tausende Male pro Sekunde.</p>
+              </div>
+              <button class="llm-btn" onclick="llmTab(3)">Was steckt dahinter? →</button>
+            </div>
+
+            <!-- STEP 3: DAS GEHEIMNIS -->
+            <div class="llm-step" id="llms3" style="display:none;">
+              <p class="llm-label">💡 DAS GEHEIMNIS</p>
+              <div class="llm-secret-box">
+                <p class="secret-title">Das Modell <em>versteht</em> nichts.</p>
+                <p>Es hat auf riesigen Mengen Text gelernt, welche Wörter häufig aufeinanderfolgen. Es hat kein Bewusstsein, keine Meinung, keine Absicht.</p>
+                <p style="margin-top:8px;">Deshalb kann es <strong>überzeugend klingen — und trotzdem falsch liegen.</strong></p>
+                <p style="margin-top:8px;font-weight:700;color:#E8FF47;">→ Genau das ist der Grund, warum Reflexion und Quellenprüfung so wichtig sind.</p>
+              </div>
+              <button class="llm-btn" onclick="llmTab(0)" style="background:#444;">↩ Nochmal von vorne</button>
+            </div>
+          </div>
+        </details>
+      </div>
     </div></div>
+
+<style>
+.llm-demo-wrap[open] summary .llm-arrow { transform: rotate(90deg); }
+.llm-demo-wrap summary::-webkit-details-marker { display: none; }
+.llm-arrow { display:inline-block; transition: transform 0.2s; }
+.llm-demo { background:#1a1a18; border-radius:10px; padding:16px; color:#f5f5f0; font-family: -apple-system, sans-serif; }
+.llm-tabs { display:flex; gap:4px; margin-bottom:14px; flex-wrap:wrap; }
+.llm-tab { background:#2a2a27; border:none; color:#888; font-size:0.72rem; font-weight:700; padding:6px 12px; border-radius:5px; cursor:pointer; transition:all 0.2s; }
+.llm-tab.active { background:#3a3a37; color:#f5f5f0; }
+.llm-tab.secret { color:#b8a000; }
+.llm-tab.secret.active { background:#3a3600; color:#E8FF47; }
+.llm-label { font-size:0.62rem; font-weight:800; letter-spacing:0.12em; color:#666; margin-bottom:12px; }
+.llm-tokens { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; background:#111; border-radius:8px; padding:14px 16px; }
+.tok { background:#7a5a00; color:#f5c842; font-weight:700; font-size:0.88rem; padding:5px 10px; border-radius:6px; }
+.tok.blank { background:transparent; border-bottom:2px solid #555; color:#555; padding-bottom:2px; }
+.tok.chosen { background:#1a5c1a; color:#7ee87e; }
+.llm-info { background:#242422; border-left:3px solid #0a7f8a; border-radius:0 7px 7px 0; padding:10px 14px; font-size:0.82rem; line-height:1.6; color:#ccc; margin-bottom:12px; }
+.llm-info strong { color:#f5f5f0; }
+.llm-btn { background:#0a7f8a; color:white; border:none; border-radius:7px; padding:8px 16px; font-size:0.78rem; font-weight:700; cursor:pointer; }
+.llm-btn:hover { background:#087a85; }
+.llm-probs { display:flex; flex-direction:column; gap:6px; margin-bottom:14px; }
+.prob-row { display:flex; align-items:center; gap:10px; font-size:0.8rem; }
+.prob-word { width:90px; color:#ccc; font-weight:600; flex-shrink:0; }
+.prob-bar-bg { flex:1; background:#2a2a27; border-radius:4px; height:20px; overflow:hidden; }
+.prob-bar { height:100%; background:#7a5a00; color:#f5c842; font-size:0.68rem; font-weight:700; display:flex; align-items:center; padding-left:6px; border-radius:4px; }
+.llm-secret-box { background:#1a1a00; border:1px solid #E8FF47; border-radius:10px; padding:14px 16px; margin-bottom:14px; font-size:0.85rem; line-height:1.65; color:#ccc; }
+.secret-title { font-size:1.1rem; font-weight:800; color:#f5f5f0; margin-bottom:8px; }
+.secret-title em { color:#E8FF47; font-style:normal; }
+</style>
+
+<script>
+function llmTab(n) {
+  document.querySelectorAll('.llm-step').forEach((s,i) => s.style.display = i===n?'block':'none');
+  document.querySelectorAll('.llm-tab').forEach((t,i) => t.classList.toggle('active', i===n));
+  document.querySelector('.llm-demo-wrap').open = true;
+}
+</script>
 
     <div class="timeline-item c-purple"><div class="timeline-card">
       <div class="card-meta"><span class="card-time">13:30 – 14:30</span><span class="card-duration">60 Min</span><span class="tag tag-group">2er Teams + Plenum</span><img class="card-tool-icon" src="https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://perplexity.ai&size=128" alt="Perplexity"></div>
